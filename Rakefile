@@ -17,5 +17,5 @@ desc 'Upload source code to github'
 task :up do
   sh 'git add .'
   sh "git commit -m 'Upload source code to GitHub'"
-  sh 'git push'
+  sh 'git push origin main'
 end
