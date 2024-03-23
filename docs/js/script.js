@@ -3,7 +3,11 @@ console.log("Rubiny plugin page loaded successfully!");
 function loadAndProcessZip(url) {
   console.log(`Loading and processing ZIP from ${url}...`);
   // Tải file ZIP
-  fetch(url)
+  fetch(url, {
+    headers: {
+      'Cache-Control': 'no-cache'
+    }
+  })
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');

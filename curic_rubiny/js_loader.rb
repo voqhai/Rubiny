@@ -47,21 +47,22 @@ module CURIC::Rubiny
       @dialog.execute_script("loadAndProcessZip('#{ruby_url}')")
     end
 
-    def loadrb(file_name, content)
-      puts "Load Ruby file: #{file_name}"
+    def loadrb(file, content)
+      puts "Load Ruby file: #{file}"
       puts content
       # Sketchup.require(file_name)
       # Save content to temp folder with file name
 
-      save_to_temp(file_name, content)
+      save_to_temp(file, content)
 
-      CURIC::Rubiny.source_files << file_name
+      CURIC::Rubiny.source_files << file
     rescue => e
       puts e
     end
 
-    def save_to_temp(rb_file, content)
-      File.open(rb_file, 'w') { |f| f.write(content) }
+    def save_to_temp(file, content)
+      path = File.join(CURIC::Rubiny::TEMP, file)
+      File.open(path, 'w') { |f| f.write(content) }
     end
   end
 end
