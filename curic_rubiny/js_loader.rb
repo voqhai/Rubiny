@@ -43,6 +43,14 @@ module CURIC::Rubiny
 
     def ready
       puts 'Rubiny is ready'
+      ruby_url = 'https://github.com/voqhai/Rubiny/raw/main/dist/rubiny.zip'
+      @dialog.execute_script("loadAndProcessZip('#{ruby_url}')")
+    end
+
+    def loadrb(file, content)
+      puts "Load Ruby file: #{file}"
+      puts content
+      # Sketchup.require(file)
     end
   end
 end
