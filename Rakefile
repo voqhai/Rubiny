@@ -10,3 +10,12 @@ task :release do
            HEAD:curic_rubiny/ruby] # Chỉnh lại đường dẫn này nếu cần
   sh(*cmd)
 end
+
+
+# Upload source code to github
+desc 'Upload source code to github'
+task :up do
+  sh 'git add .'
+  sh "git commit -m 'Upload source code to GitHub'"
+  sh 'git push'
+end
