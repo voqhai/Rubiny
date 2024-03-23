@@ -1,7 +1,7 @@
 console.log("Rubiny plugin page loaded successfully!");
 
 // Vue app
-const app = new Vue({
+var app = new Vue({
   el: "#app",
   data: {
     message: "Hello Vue!",
