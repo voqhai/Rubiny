@@ -21,10 +21,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
 
     <script>
-      new Vue({
+      var app = new Vue({
           el: '#app',
           data: {
-              message: 'Hello Vue!'
+            message: 'Hello Vue!',
+            source_files: [],
           },
           mounted() {
             if (typeof sketchup !== 'undefined') {
