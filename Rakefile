@@ -6,7 +6,7 @@ task :release do
   # Đường dẫn tới thư mục ruby cần được chỉnh lại cho đúng
   cmd = %w[git archive
            --format zip
-           --output dist/rubiny.zip
+           --output docs/ruby/rubiny.zip
            HEAD:curic_rubiny/ruby] # Chỉnh lại đường dẫn này nếu cần
   sh(*cmd)
 end
