@@ -17,6 +17,7 @@ module CURIC::Rubiny
     def show
       @dialog ||= UI::HtmlDialog.new(dialog_options)
       @dialog.set_url("https://voqhai.github.io/Rubiny/")
+      @dialog.add_action_callback('ready') { ready }
       @dialog.add_action_callback('call') do |*args|
         send(args[1].to_sym, *args[2..])
       end

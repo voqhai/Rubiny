@@ -25,7 +25,9 @@
               message: 'Hello Vue!'
           },
           mounted() {
-            sketchup.ready();
+            if (typeof sketchup !== 'undefined') {
+              sketchup.ready();
+            }
           },
       });
     </script>
