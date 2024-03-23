@@ -1,0 +1,13 @@
+{
+  "id": "quick_component",
+  "name": "My First Snippet",
+  "description": "A brief description of what this snippet does and how it can be used.",
+  "tags": ["tag1", "tag2", "tag3"],
+  "author": "Author Name",
+  "documentationUrl": "tutorial.html",
+  "usage": "How to use this snippet in your projects...",
+  "version": "1.0.0",
+  "snippet_id": "QuickComponent",
+  "thumbnail": "thumbnail.png",
+  "icon": "icon.png"
+}

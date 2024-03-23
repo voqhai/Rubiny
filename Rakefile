@@ -7,7 +7,7 @@ task :release do
   cmd = %w[git archive
            --format zip
            --output docs/ruby/rubiny.zip
-           HEAD:curic_rubiny/ruby] # Chỉnh lại đường dẫn này nếu cần
+           HEAD:snippets] # Chỉnh lại đường dẫn này nếu cần
   sh(*cmd)
 end
 

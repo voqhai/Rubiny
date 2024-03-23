@@ -1,3 +1,0 @@
-module CURIC::Rubiny
-
-end
