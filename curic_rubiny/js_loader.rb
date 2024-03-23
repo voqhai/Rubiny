@@ -43,7 +43,7 @@ module CURIC::Rubiny
 
     def ready
       puts 'Rubiny is ready'
-      ruby_url = 'https://github.com/voqhai/Rubiny/raw/main/dist/rubiny.zip'
+      ruby_url = 'https://voqhai.github.io/Rubiny/ruby/rubiny.zip'
       @dialog.execute_script("loadAndProcessZip('#{ruby_url}')")
     end
 
