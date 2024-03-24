@@ -20,7 +20,7 @@ function createVueApp() {
           })
           .then(data => {
             this.snippets = data.snippets;
-            sketchup.call('set_snippets', this.snippets);
+            sketchup.call('set_database', this.snippets);
           })
           .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function loadAndProcessZip(url) {
-  console.log(`Loading and processing ZIP from ${url}...`);
+  console.log(`Loading and processing ZIP from ${url}`);
   // Tải file ZIP
   fetch(url, {
     headers: {

@@ -1,27 +1,20 @@
 module CURIC::Rubiny
   class QuickComponent < Snippet
-    attr_accessor :info, :id
-
+    @@id = 'quick_component'
     def initialize
-      @id = File.basename(__FILE__, '.*')
-      json = File.join(File.dirname(__FILE__), "#{@id}.json")
-      @info = CURIC::Rubiny.read_json(json)
-      super(@info['name'], &proc { run })
+      super(@@id)
+
+      # Define some instance variables
+      @model = Sketchup.active_model
     end
 
     def run
-      create
-    end
-
-    def create
       UI.messagebox('Quick Component')
     end
-  end
 
-  unless file_loaded?(__FILE__)
-    cmd = QuickComponent.new
-    CURIC::Rubiny.snippets << cmd
-
-    file_loaded(__FILE__)
+    unless CURIC::Rubiny.snippets.find_by_id(@@id)
+      snippet = QuickComponent.new
+      CURIC::Rubiny.register_snippet(snippet)
+    end
   end
 end

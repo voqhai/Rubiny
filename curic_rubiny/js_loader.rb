@@ -16,7 +16,14 @@ module CURIC::Rubiny
 
     def show
       @dialog ||= UI::HtmlDialog.new(dialog_options)
-      @dialog.set_url("https://voqhai.github.io/Rubiny/")
+      if PLUGIN.debug?
+        html_file = File.join(File.dirname(PATH), 'docs', 'index.html')
+        @dialog.set_html(html_file)
+        p "Load HTML: #{html_file}"
+      else
+        @dialog.set_url("https://voqhai.github.io/Rubiny/")
+      end
+
       @dialog.add_action_callback('ready') { ready }
       @dialog.add_action_callback('call') do |*args|
         send(args[1].to_sym, *args[2..])
@@ -43,24 +50,32 @@ module CURIC::Rubiny
 
     def ready
       puts 'Rubiny is ready'
+
+      if PLUGIN.debug?
+        ruby_url = File.join(File.dirname(PATH), 'docs', 'all_ruby_files.zip')
+      else
+        ruby_url = 'https://voqhai.github.io/Rubiny/all_ruby_files.zip'
+      end
+
       ruby_url = 'https://voqhai.github.io/Rubiny/all_ruby_files.zip'
       @dialog.execute_script("loadAndProcessZip('#{ruby_url}')")
     end
 
-    def set_snippets(snippets)
+    def set_database(snippets)
       p 'Set snippets'
-      ap snippets
+      PLUGIN.snippets.database = snippets.each_with_object({}) do |snippet, h|
+        h[snippet['id']] = snippet
+      end
     end
 
     def loadrb(file, content)
       puts "Load Ruby file: #{file}"
-      puts content
-      # Sketchup.require(file_name)
-      # Save content to temp folder with file name
+      id = File.basename(file, '.rb')
+      info = PLUGIN.snippets.get_info(id)
+      return unless info
 
-      # save_to_temp(file, content)
-
-      # CURIC::Rubiny.source_files << file
+      info['ruby_content'] = content
+      eval(content)
     rescue => e
       puts e
     end
