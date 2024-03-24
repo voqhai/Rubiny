@@ -11,6 +11,13 @@ task :release do
   sh(*cmd)
 end
 
+# Upload source code to github
+desc 'Upload source code to github'
+task :up do
+  sh 'git add .'
+  sh "git commit -m 'Upload source code to GitHub'"
+  sh 'git push origin main'
+end
 
 require 'json'
 require 'rake/packagetask'
@@ -53,6 +60,7 @@ desc "Package all Ruby files into a single zip"
 task :zip_all_ruby do
   ruby_files = FileList['docs/snippets/**/*.rb']
   zip_name = "all_ruby_files.zip"
+  FileUtils.rm("docs/#{zip_name}") if File.exist?("docs/#{zip_name}")
 
   Zip::File.open(zip_name, create: true) do |zipfile|
     ruby_files.each do |file|
@@ -62,16 +70,6 @@ task :zip_all_ruby do
   end
 
   # Move the zip file to the docs directory, if needed
+  # remove if exist
   FileUtils.mv(zip_name, "docs/#{zip_name}") unless File.exist?("docs/#{zip_name}")
-end
-
-# Upload source code to github
-desc 'Upload source code to github'
-task :up do
-  # zip all ruby files
-  # Rake::Task[:zip_all_ruby].invoke
-
-  sh 'git add .'
-  sh "git commit -m 'Upload source code to GitHub'"
-  sh 'git push origin main'
 end

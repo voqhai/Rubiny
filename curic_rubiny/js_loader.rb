@@ -78,6 +78,7 @@ module CURIC::Rubiny
       eval(content)
     rescue => e
       puts e
+      puts content
     end
 
     def save_to_temp(file, content)
