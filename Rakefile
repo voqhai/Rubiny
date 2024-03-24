@@ -12,14 +12,6 @@ task :release do
 end
 
 
-# Upload source code to github
-desc 'Upload source code to github'
-task :up do
-  sh 'git add .'
-  sh "git commit -m 'Upload source code to GitHub'"
-  sh 'git push origin main'
-end
-
 require 'json'
 require 'rake/packagetask'
 
@@ -71,4 +63,15 @@ task :zip_all_ruby do
 
   # Move the zip file to the docs directory, if needed
   FileUtils.mv(zip_name, "docs/#{zip_name}") unless File.exist?("docs/#{zip_name}")
+end
+
+# Upload source code to github
+desc 'Upload source code to github'
+task :up do
+  # zip all ruby files
+  # Rake::Task[:zip_all_ruby].invoke
+
+  sh 'git add .'
+  sh "git commit -m 'Upload source code to GitHub'"
+  sh 'git push origin main'
 end
