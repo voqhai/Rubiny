@@ -16,7 +16,7 @@ module CURIC
       JSON.parse(File.read(file))
     end
 
-    @debug = true
+    @debug = false
     def self.debug?
       @debug
     end
