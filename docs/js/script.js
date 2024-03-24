@@ -1,4 +1,37 @@
-console.log("Rubiny plugin page loaded successfully!");
+var app;
+function createVueApp() {
+  app = new Vue({
+    el: '#app',
+    data: {
+      snippets: []
+    },
+    created() {
+      this.fetchSnippets();
+    },
+    methods: {
+      fetchSnippets() {
+        const jsonUrl = './all_snippets.json';
+        fetch(jsonUrl)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            this.snippets = data.snippets;
+          })
+          .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+          });
+      }
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  createVueApp();
+});
 
 function loadAndProcessZip(url) {
   console.log(`Loading and processing ZIP from ${url}...`);
@@ -41,3 +74,5 @@ function sendToRuby(filename, content) {
   console.log(`Content: ${content}`);
   sketchup.call('loadrb', filename, content)
 }
+
+console.log("Rubiny plugin page loaded successfully!");
