@@ -28,9 +28,7 @@ function createVueApp() {
       }
     },
     mounted() {
-      if (typeof sketchup !== 'undefined') {
-        sketchup.ready();
-      }
+      sketchup.ready();
     },
   });
 }
