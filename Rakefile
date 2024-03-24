@@ -68,7 +68,7 @@ end
 
 # Upload source code to github
 desc 'Upload source code to github'
-task :up do
+task :build do
   # make all json files
   Rake::Task[:generate_json].invoke
   # make all ruby files
