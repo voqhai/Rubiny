@@ -1,2 +1,3 @@
-Rubiny
-A collection of tiny Ruby scripts
+# Rubiny
+
+**Rubiny**: A collection of tiny Ruby scripts.
