@@ -12,8 +12,8 @@
     },
     {
       "id": "quick_component",
-      "name": "My First Snippet",
-      "description": "A brief description of what this snippet does and how it can be used.",
+      "name": "Quick Component",
+      "description": "Make Component without any configuration",
       "ruby_file": "snippets/quick_component/quick_component.rb",
       "image": null,
       "additional_files": [

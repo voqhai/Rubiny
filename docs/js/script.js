@@ -3,6 +3,7 @@ function createVueApp() {
   app = new Vue({
     el: '#app',
     data: {
+      search: '',
       snippets: []
     },
     created() {
@@ -25,6 +26,17 @@ function createVueApp() {
           .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
           });
+      },
+      run(id){
+        sketchup.call('run', id);
+      }
+    },
+    computed: {
+      filteredSnippets() {
+        return this.snippets.filter(snippet => {
+          const search = this.search.toLowerCase();
+          return snippet.name.toLowerCase().includes(search) || snippet.description.toLowerCase().includes(search);
+        });
       }
     },
     mounted() {

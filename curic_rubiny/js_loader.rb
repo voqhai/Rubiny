@@ -15,10 +15,10 @@ module CURIC::Rubiny
     end
 
     def show
-      @dialog ||= UI::HtmlDialog.new(dialog_options)
+      @dialog = UI::HtmlDialog.new(dialog_options)
       if PLUGIN.debug?
         html_file = File.join(File.dirname(PATH), 'docs', 'index.html')
-        @dialog.set_html(html_file)
+        @dialog.set_file(html_file)
         p "Load HTML: #{html_file}"
       else
         @dialog.set_url("https://voqhai.github.io/Rubiny/")
@@ -79,6 +79,15 @@ module CURIC::Rubiny
     rescue => e
       puts e
       puts content
+    end
+
+    def run(id)
+      snippet = PLUGIN.snippets.find_by_id(id)
+      if snippet
+        snippet.run
+      else
+        UI.messagebox("Snippet not found: #{id}")
+      end
     end
 
     def save_to_temp(file, content)

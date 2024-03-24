@@ -5,6 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Rubiny Hello</title>
       <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
   </head>
   <body>
     <h1>Hello from Rubiny!</h1>
@@ -14,32 +15,24 @@
 
     <div id="app">
       <template>
-        <ul>
-          <li v-for="snippet in snippets" :key="snippet.id">
-            {{ snippet.name }} - {{ snippet.description }}
-          </li>
-        </ul>
+        <el-input v-model="search" placeholder="Search snippets" class="search"></el-input>
+
+        <el-card v-for="snippet in filteredSnippets" :key="snippet.id" :body-style="{padding: '10px'}">
+          <div slot="header" class="clearfix">
+            <div class="bar">
+              <h3>{{ snippet.name }}</h3>
+              <el-button @click="run(snippet.id)" style="float: right; padding: 3px 0" type="text">Run</el-button>
+            </div>
+          </div>
+
+          <span>{{ snippet.description }}</span>
+        </el-card>
       </template>
     </div>
 
-    <!-- Vue script-->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui@2.15.3/lib/index.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
-
-    <!-- <script>
-      var app = new Vue({
-          el: '#app',
-          data: {
-            message: 'Hello Vue!',
-            source_files: [],
-          },
-          mounted() {
-            if (typeof sketchup !== 'undefined') {
-              sketchup.ready();
-            }
-          },
-      });
-    </script> -->
     <script src="js/script.js"></script>
   </body>
 </html>
