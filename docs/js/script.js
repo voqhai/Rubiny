@@ -10,6 +10,17 @@ function createVueApp() {
       this.fetchSnippets();
     },
     methods: {
+      call: function (...args) {
+        try {
+          sketchup.call(...args);
+        } catch (error) {
+          if (error instanceof ReferenceError) {
+            alert('This function is only available in SketchUp!');
+          } else {
+            console.error(error);
+          }
+        }
+      },
       fetchSnippets() {
         const jsonUrl = './all_snippets.json';
         fetch(jsonUrl)
@@ -21,14 +32,14 @@ function createVueApp() {
           })
           .then(data => {
             this.snippets = data.snippets;
-            sketchup.call('set_database', this.snippets);
+            this.call('set_database', this.snippets);
           })
           .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
           });
       },
       run(id){
-        sketchup.call('run', id);
+        this.call('run', id);
       }
     },
     computed: {
@@ -40,7 +51,11 @@ function createVueApp() {
       }
     },
     mounted() {
-      sketchup.ready();
+      try {
+        sketchup.ready();
+      } catch (error) {
+        console.error(error);        
+      }
     },
   });
 }
@@ -88,7 +103,11 @@ function sendToRuby(filename, content) {
   // để gửi nội dung tới Ruby. Ví dụ:
   console.log(`Sending ${filename} to Ruby...`);
   console.log(`Content: ${content}`);
-  sketchup.call('loadrb', filename, content)
+  try {
+    sketchup.call('loadrb', filename, content)
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 console.log("Rubiny plugin page loaded successfully!");
