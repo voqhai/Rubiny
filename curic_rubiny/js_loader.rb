@@ -47,15 +47,20 @@ module CURIC::Rubiny
       @dialog.execute_script("loadAndProcessZip('#{ruby_url}')")
     end
 
+    def set_snippets(snippets)
+      p 'Set snippets'
+      ap snippets
+    end
+
     def loadrb(file, content)
       puts "Load Ruby file: #{file}"
       puts content
       # Sketchup.require(file_name)
       # Save content to temp folder with file name
 
-      save_to_temp(file, content)
+      # save_to_temp(file, content)
 
-      CURIC::Rubiny.source_files << file
+      # CURIC::Rubiny.source_files << file
     rescue => e
       puts e
     end

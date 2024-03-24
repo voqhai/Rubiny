@@ -13,12 +13,13 @@
     <img src="images/logo.png" alt="Rubiny Logo">
 
     <div id="app">
-      <h2>{{ message }}</h2>
-      <ul>
-        <li v-for="snippet in snippets" :key="snippet.id">
-          {{ snippet.name }} - {{ snippet.description }}
-        </li>
-      </ul>
+      <template>
+        <ul>
+          <li v-for="snippet in snippets" :key="snippet.id">
+            {{ snippet.name }} - {{ snippet.description }}
+          </li>
+        </ul>
+      </template>
     </div>
 
     <!-- Vue script-->

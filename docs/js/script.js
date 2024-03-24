@@ -20,12 +20,18 @@ function createVueApp() {
           })
           .then(data => {
             this.snippets = data.snippets;
+            sketchup.call('set_snippets', this.snippets);
           })
           .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
           });
       }
-    }
+    },
+    mounted() {
+      if (typeof sketchup !== 'undefined') {
+        sketchup.ready();
+      }
+    },
   });
 }
 
