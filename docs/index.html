@@ -14,13 +14,18 @@
 
     <div id="app">
       <h2>{{ message }}</h2>
+      <ul>
+        <li v-for="snippet in snippets" :key="snippet.id">
+          {{ snippet.name }} - {{ snippet.description }}
+        </li>
+      </ul>
     </div>
 
     <!-- Vue script-->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
 
-    <script>
+    <!-- <script>
       var app = new Vue({
           el: '#app',
           data: {
@@ -33,7 +38,7 @@
             }
           },
       });
-    </script>
+    </script> -->
     <script src="js/script.js"></script>
   </body>
 </html>

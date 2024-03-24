@@ -1,0 +1,24 @@
+{
+  "snippets": [
+    {
+      "id": "find_face",
+      "name": "Snippet One",
+      "description": "This is the first snippet.",
+      "ruby_file": "snippets/find_faces/find_face.rb",
+      "image": null,
+      "additional_files": [
+
+      ]
+    },
+    {
+      "id": "quick_component",
+      "name": "My First Snippet",
+      "description": "A brief description of what this snippet does and how it can be used.",
+      "ruby_file": "snippets/quick_component/quick_component.rb",
+      "image": null,
+      "additional_files": [
+
+      ]
+    }
+  ]
+}
