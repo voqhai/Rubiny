@@ -1,7 +1,7 @@
 module CURIC::Rubiny
   class ShadowAngle < Snippet
     def initialize(*args)
-      super(args)
+      super(*args)
     end
 
     def play
