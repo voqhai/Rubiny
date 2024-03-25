@@ -38,11 +38,13 @@
               <div class="snippet-thumbnail">
                 <img :src="'snippets/' + snippet.id + '/asset/thumbnail.png'" alt="Snippet Thumbnail">
               </div>
-              <div><span>{{ snippet.description }}</span></div>
               <div>
-                <template v-if="snippet.template">
-                  <component :is="snippet.component" v-bind="snippet.data"></component>
-                </template>
+                <div><span>{{ snippet.description }}</span></div>
+                <div>
+                  <template v-if="snippet.template">
+                    <component :is="snippet.component" v-bind="snippet.props"></component>
+                  </template>
+                </div>
               </div>
             </div>
           </div>

@@ -31,8 +31,10 @@
       ],
       "template": "<el-slider v-model='sliderValue' min='0' max='360'></el-slider> ",
       "component": "el-slider",
-      "data": {
-        "sliderValue": 60
+      "props": {
+        "min": 0,
+        "max": 360,
+        "value": 180
       }
     }
   ]
