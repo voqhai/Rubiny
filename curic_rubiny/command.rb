@@ -1,6 +1,7 @@
 module CURIC::Rubiny
   class Snippet < UI::Command
     attr_accessor :info, :id, :name
+    attr_writer :installed
 
     DEFAULT_PROPERTIES = {
       'name' => 'Snippet',
@@ -16,9 +17,15 @@ module CURIC::Rubiny
       @id = @info['id']
       @name = @info['name']
 
+      @installed = false
+
       super(@name) do
         play
       end
+    end
+
+    def installed?
+      @installed
     end
 
     def play
@@ -27,6 +34,12 @@ module CURIC::Rubiny
 
     def play_value(value)
       # the first method to be called when the command is executed
+    end
+
+    def context_menu(context_menu)
+      return unless use_context_menu?
+
+      context_menu.add_item(self)
     end
   end
 end

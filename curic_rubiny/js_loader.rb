@@ -61,16 +61,21 @@ module CURIC::Rubiny
       @dialog.execute_script("loadAndProcessZip('#{ruby_url}')")
     end
 
+    def loaded_database(_snippets)
+      # All snippets on server is loaded
+      sync_local_snippets
+    end
+
     # Get snippets from local (installed)
     def sync_local_snippets
       puts 'Sync Local Snippets'
-    end
 
-    def set_database(snippets)
-      # p 'Set Database'
-      CURIC::Rubiny.snippets.database = snippets.each_with_object({}) do |snippet, h|
-        h[snippet['id']] = snippet
-      end
+      installed = PLUGIN.snippets.find_all(&:installed?)
+      installed_ids = installed.map(&:id)
+      p 'Installed IDs:'
+      ap installed_ids
+
+      @dialog.execute_script("app.installed = #{installed_ids.to_json};")
     end
 
     def loadrb(file, content)

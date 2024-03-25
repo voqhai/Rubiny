@@ -4,10 +4,18 @@ function createVueApp() {
     el: '#app',
     data: {
       search: '',
-      snippets: []
+      snippets: [],
+      installed: [],
     },
     created() {
       this.fetchSnippets();
+    },
+    watch: {
+      installed: function (newVal, oldVal) {
+        this.snippets.forEach(snippet => {
+          snippet.installed = newVal.includes(snippet.id);
+        });
+      }
     },
     methods: {
       call: function (...args) {
@@ -35,7 +43,8 @@ function createVueApp() {
             // Set default database: installed, ...
             this.setDefaultInfo();
 
-            // this.call('set_database', this.snippets);
+            // tell ruby is loaded json
+            this.call('loaded_database', this.snippets);
           })
           .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);

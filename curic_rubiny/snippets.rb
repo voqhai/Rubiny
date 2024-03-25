@@ -37,5 +37,13 @@ module CURIC::Rubiny
 
       @snippets << snippet
     end
+
+    def build_context_menu(context_menu)
+      sub_menu = context_menu.add_submenu(PLUGIN_ID)
+      @snippets.each do |snippet|
+        snippet.context_menu(sub_menu)
+      end
+    end
+
   end
 end
