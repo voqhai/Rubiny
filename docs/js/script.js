@@ -75,6 +75,14 @@ function createVueApp() {
           s.loaded = true;
         }
       },
+      hasNewVersion(snippet) {
+        i = this.installed.find(s => s.id === snippet.id)
+        if (i >= 0) {
+          return i.version != snippet.version;
+        }
+
+        return false;
+      },
       playValue(snippet) {
         console.log('Updating snippet:', snippet, snippet.value);
         this.call('play_value', snippet);

@@ -33,6 +33,9 @@
                   <template v-else>
                     <el-button size="mini" type="success" @click="install(snippet)"> <i class="el-icon-download"></i> Install</el-button>
                   </template>
+                  <template v-if="hasNewVersion(snippet)">
+                    <el-button size="mini" type="warning" @click="update(snippet)"> <i class="el-icon-upload"></i> Update</el-button>
+                  </template>
                 </el-button-group>
               </div>
             </div>
