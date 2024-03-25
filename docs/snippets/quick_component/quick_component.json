@@ -1,5 +1,7 @@
 {
   "id": "quick_component",
   "name": "Quick Component",
-  "description": "Make Component without any configuration"
+  "description": "Make Component without any configuration",
+  "version": "0.0.1",
+  "author": "Curic"
 }

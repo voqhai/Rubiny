@@ -1,12 +1,12 @@
 module CURIC
   module Rubiny
     class << self
-      attr_accessor :snippets, :source_files, :debug
+      attr_accessor :snippets, :source_files, :debug, :local_snippets
     end
 
     @source_files ||= []
 
-    TEMP = File.join(PATH, 'temp').freeze
+    LOCAL_DIR = File.join(PATH, 'local').freeze
 
     Sketchup.require "#{PATH}/js_loader"
     Sketchup.require "#{PATH}/command"
@@ -29,9 +29,25 @@ module CURIC
       p "Install #{snippet.id}"
       info = snippet.info
       ruby_file = info['ruby_file']
-      file = File.join(CURIC::Rubiny::TEMP, ruby_file)
-      p "Save to local: #{file}"
-      puts info['ruby_content']
+      file = File.join(CURIC::Rubiny::LOCAL_DIR, ruby_file)
+
+      dir = File.dirname(file)
+      FileUtils.mkdir_p(dir) unless File.directory?(dir)
+
+      save_to_temp(file, info['ruby_content'])
+
+      json_file = File.join(dir, "#{snippet.id}.json")
+      data = info.dup
+      data.delete('ruby_content')
+      save_to_temp(json_file, JSON.pretty_generate(data))
+    end
+
+    def self.remove(id)
+      # p "Remove #{id}"
+    end
+
+    def self.update(id)
+      # p "Update #{id}"
     end
 
     def self.build
@@ -40,8 +56,7 @@ module CURIC
     end
 
     def self.save_to_temp(file, content)
-      path = File.join(CURIC::Rubiny::TEMP, file)
-      File.open(path, 'w') { |f| f.write(content) }
+      File.open(file, 'w') { |f| f.write(content) }
     end
 
     unless file_loaded?(__FILE__)

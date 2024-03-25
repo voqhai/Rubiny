@@ -61,8 +61,13 @@ module CURIC::Rubiny
       @dialog.execute_script("loadAndProcessZip('#{ruby_url}')")
     end
 
+    # Get snippets from local (installed)
+    def sync_local_snippets
+      puts 'Sync Local Snippets'
+    end
+
     def set_database(snippets)
-      p 'Set snippets'
+      # p 'Set Database'
       CURIC::Rubiny.snippets.database = snippets.each_with_object({}) do |snippet, h|
         h[snippet['id']] = snippet
       end
@@ -90,6 +95,14 @@ module CURIC::Rubiny
       end
     end
 
+    def remove(id)
+      CURIC::Rubiny.remove(id)
+    end
+
+    def update(id)
+      p "Update: #{id}"
+    end
+
     def play(id)
       snippet = CURIC::Rubiny.snippets.find_by_id(id)
       if snippet
@@ -109,6 +122,5 @@ module CURIC::Rubiny
         UI.messagebox("Snippet not found: #{id}")
       end
     end
-
   end
 end

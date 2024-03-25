@@ -1,5 +1,7 @@
 {
   "id": "find_face",
   "name": "Snippet One",
-  "description": "This is the first snippet."
+  "description": "This is the first snippet.",
+  "version": "0.0.1",
+  "author": "Curic"
 }

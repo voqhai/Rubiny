@@ -1,0 +1,10 @@
+{
+  "additional_files": [
+
+  ],
+  "description": "Make Component without any configuration",
+  "id": "quick_component",
+  "image": null,
+  "name": "Quick Component",
+  "ruby_file": "snippets/quick_component/quick_component.rb"
+}

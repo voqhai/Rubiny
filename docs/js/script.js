@@ -47,6 +47,12 @@ function createVueApp() {
       },
       install(id){
         this.call('install', id);
+      },
+      remove(id){
+        this.call('remove', id);
+      },
+      update(id){
+        this.call('update', id);
       }
     },
     computed: {
