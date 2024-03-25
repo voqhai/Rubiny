@@ -8,7 +8,7 @@ module CURIC::Rubiny
       @model = Sketchup.active_model
     end
 
-    def run
+    def play
       UI.messagebox('Quick Component')
     end
 

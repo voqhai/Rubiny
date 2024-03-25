@@ -81,10 +81,10 @@ module CURIC::Rubiny
       puts content
     end
 
-    def run(id)
+    def play(id)
       snippet = PLUGIN.snippets.find_by_id(id)
       if snippet
-        snippet.run
+        snippet.play
       else
         UI.messagebox("Snippet not found: #{id}")
       end

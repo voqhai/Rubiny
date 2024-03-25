@@ -8,10 +8,13 @@
       <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
   </head>
   <body>
-    <h1>Hello from Rubiny!</h1>
-    <p>A collection of tiny Ruby scripts</p>
-
-    <img src="images/logo.png" alt="Rubiny Logo">
+    <div class="bar">
+      <img src="images/logo.png" alt="Rubiny Logo">
+      <div>
+        <h1>Hello from Rubiny!</h1>
+        <p>A collection of tiny Ruby scripts</p>
+      </div>
+    </div>
 
     <div id="app">
       <template>
@@ -21,7 +24,12 @@
           <div slot="header" class="clearfix">
             <div class="bar">
               <h3>{{ snippet.name }}</h3>
-              <el-button @click="run(snippet.id)" style="float: right; padding: 3px 0" type="text">Run</el-button>
+              <div>
+                <el-button-group>
+                  <el-button size="mini" @click="play(snippet.id)"> <i class="el-icon-video-play"></i> Play</el-button>
+                  <el-button size="mini" @click="play(snippet.id)"> <i class="el-icon-download"></i> Install</el-button>
+                </el-button-group>
+              </div>
             </div>
           </div>
 

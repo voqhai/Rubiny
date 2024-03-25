@@ -38,8 +38,8 @@ function createVueApp() {
             console.error('There has been a problem with your fetch operation:', error);
           });
       },
-      run(id){
-        this.call('run', id);
+      play(id){
+        this.call('play', id);
       }
     },
     computed: {
