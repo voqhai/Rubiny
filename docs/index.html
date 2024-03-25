@@ -41,7 +41,6 @@
               <div><span>{{ snippet.description }}</span></div>
               <div>
                 <template v-if="snippet.template">
-                  {{snippet.template}}
                   <component :is="snippet.component" v-bind="snippet.data"></component>
                 </template>
               </div>
