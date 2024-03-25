@@ -40,7 +40,7 @@ function createVueApp() {
       },
       updateValue(snippet) {
         console.log('Updating snippet:', snippet, snippet.value);
-        this.call('update', snippet);
+        this.call('play_value', snippet);
       },
       play(id){
         this.call('play', id);

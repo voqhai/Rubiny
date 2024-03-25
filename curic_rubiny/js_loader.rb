@@ -90,6 +90,10 @@ module CURIC::Rubiny
       end
     end
 
+    def play_value(snippet)
+      p "Play value: #{snippet.value}"
+    end
+
     def save_to_temp(file, content)
       path = File.join(CURIC::Rubiny::TEMP, file)
       File.open(path, 'w') { |f| f.write(content) }
