@@ -8,8 +8,8 @@
       <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
   </head>
   <body>
-    <div class="bar">
-      <img src="images/logo.png" alt="Rubiny Logo">
+    <div class="bar left">
+      <div class="logo"><img src="images/logo.png" alt="Rubiny Logo"></div>
       <div>
         <h1>Hello from Rubiny!</h1>
         <p>A collection of tiny Ruby scripts</p>
@@ -33,7 +33,14 @@
             </div>
           </div>
 
-          <span>{{ snippet.description }}</span>
+          <div class="snippet-content">
+            <div class="bar left">
+              <div class="snippet-thumbnail">
+                <img :src="'snippets/' + snippet.id + '/asset/thumbnail.png'" alt="Snippet Thumbnail">
+              </div>
+              <span>{{ snippet.description }}</span>
+            </div>
+          </div>
         </el-card>
       </template>
     </div>

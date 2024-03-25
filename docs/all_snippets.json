@@ -4,7 +4,7 @@
       "id": "find_face",
       "name": "Snippet One",
       "description": "This is the first snippet.",
-      "ruby_file": "snippets/find_faces/find_face.rb",
+      "ruby_file": "snippets/find_face/find_face.rb",
       "image": null,
       "additional_files": [
 
