@@ -1,8 +1,6 @@
 module CURIC::Rubiny
   class ShadowAngle < Snippet
-    def initialize(**args)
-      p 'Shadow Angle.initialize'
-      ap args
+    def initialize(*args)
       super(args)
     end
 
