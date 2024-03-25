@@ -12,9 +12,6 @@ module CURIC::Rubiny
       UI.messagebox('Quick Component')
     end
 
-    unless CURIC::Rubiny.snippets.find_by_id(@@id)
-      snippet = QuickComponent.new
-      CURIC::Rubiny.register_snippet(snippet)
-    end
+    CURIC::Rubiny.register_snippet(new) unless CURIC::Rubiny.snippets.find_by_id(@@id)
   end
 end

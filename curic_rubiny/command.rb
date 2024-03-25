@@ -5,12 +5,18 @@ module CURIC::Rubiny
     def initialize(id)
       @id = id
       @info = CURIC::Rubiny.snippets.get_info(@id)
-      p "@id: #{@id}"
-      ap @info
-
       super(@info['name']) do
-        run
+        play
       end
     end
+
+    def play
+      # the first method to be called when the command is executed
+    end
+
+    def play_value(value)
+      # the first method to be called when the command is executed
+    end
+
   end
 end

@@ -90,8 +90,15 @@ module CURIC::Rubiny
       end
     end
 
-    def play_value(snippet)
-      p "Play value: #{snippet.value}"
+    def play_value(id, value)
+      p "Play value: #{value}"
+      snippet = PLUGIN.snippets.find_by_id(id)
+      if snippet
+        snippet.play_value(value)
+      else
+        # Missing Ruby Snippet Object
+        UI.messagebox("Snippet not found: #{id}")
+      end
     end
 
     def save_to_temp(file, content)

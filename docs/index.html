@@ -4,8 +4,8 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Rubiny Hello</title>
-      <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+      <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <div class="bar left">
@@ -19,7 +19,7 @@
     <div id="app">
       <template>
         <el-input v-model="search" placeholder="Search snippets" class="search"></el-input>
-
+        <el-divider></el-divider>
         <el-card v-for="snippet in filteredSnippets" :key="snippet.id" :body-style="{padding: '10px'}">
           <div slot="header" class="clearfix">
             <div class="bar">
@@ -39,10 +39,10 @@
                 <img :src="'snippets/' + snippet.id + '/asset/thumbnail.png'" alt="Snippet Thumbnail">
               </div>
               <div>
-                <div><span>{{ snippet.description }}</span></div>
+                <div><span class="snippet-description">{{ snippet.description }}</span></div>
                 <div>
                   <template v-if="snippet.component">
-                    <component v-model="snippet.value" @change="updateValue(snippet)" :is="snippet.component" v-bind="snippet.props"></component>
+                    <component v-model="snippet.value" @change="playValue(snippet)" :is="snippet.component" v-bind="snippet.props"></component>
                   </template>
                 </div>
               </div>

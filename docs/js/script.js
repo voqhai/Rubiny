@@ -38,9 +38,9 @@ function createVueApp() {
             console.error('There has been a problem with your fetch operation:', error);
           });
       },
-      updateValue(snippet) {
+      playValue(snippet) {
         console.log('Updating snippet:', snippet, snippet.value);
-        this.call('play_value', snippet);
+        this.call('play_value', snippet.id, snippet.value);
       },
       play(id){
         this.call('play', id);
