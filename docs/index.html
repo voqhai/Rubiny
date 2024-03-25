@@ -26,7 +26,7 @@
               <h3>{{ snippet.name }}</h3>
               <div>
                 <el-button-group>
-                  <el-button size="mini" @click="play(snippet.id)"> <i class="el-icon-video-play"></i> Play</el-button>
+                  <el-button size="mini" type="primary" @click="play(snippet.id)"> <i class="el-icon-video-play"></i> Play</el-button>
                   <el-button size="mini" @click="play(snippet.id)"> <i class="el-icon-download"></i> Install</el-button>
                 </el-button-group>
               </div>
@@ -38,7 +38,12 @@
               <div class="snippet-thumbnail">
                 <img :src="'snippets/' + snippet.id + '/asset/thumbnail.png'" alt="Snippet Thumbnail">
               </div>
-              <span>{{ snippet.description }}</span>
+              <div><span>{{ snippet.description }}</span></div>
+              <div>
+                <template v-if="snippet.template">
+                  <component :is="snippet.template" v-bind="snippet.data"></component>
+                </template>
+              </div>
             </div>
           </div>
         </el-card>

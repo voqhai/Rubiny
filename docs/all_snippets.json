@@ -19,6 +19,20 @@
       "additional_files": [
 
       ]
+    },
+    {
+      "id": "shadow_angle",
+      "name": "Shadow Angle",
+      "description": "A simple snippet to adjust the angle of a shadow",
+      "ruby_file": "snippets/shadow_angle/shadow_angle.rb",
+      "image": null,
+      "additional_files": [
+
+      ],
+      "template": "<el-slider v-model='sliderValue' min='0' max='360'></el-slider> ",
+      "data": {
+        "sliderValue": 60
+      }
     }
   ]
 }
