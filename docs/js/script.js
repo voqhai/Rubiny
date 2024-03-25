@@ -44,13 +44,19 @@ function createVueApp() {
       setDefaultInfo() {
         this.snippets.forEach(snippet => {
           snippet.installed = false;
-          // snippet.installed_version = '';
+          snippet.loaded = false;
         });
       },
       setRubyContent(filename, content) {
         const snippet = this.snippets.find(s => s.ruby_file === filename);
         if (snippet) {
           snippet.ruby_content = content;
+        }
+      },
+      loadedSnippet(id) {
+        s = this.snippets.find(s => s.id === id);
+        if (s) {
+          s.loaded = true;
         }
       },
       playValue(snippet) {

@@ -2,7 +2,16 @@ module CURIC::Rubiny
   class Snippet < UI::Command
     attr_accessor :info, :id, :name
 
+    DEFAULT_PROPERTIES = {
+      'name' => 'Snippet',
+      'description' => 'A snippet'
+    }
+
     def initialize(props)
+      raise 'arg must be a Hash' unless props.is_a?(Hash)
+
+      props = DEFAULT_PROPERTIES.merge(props)
+
       @info = props
       @id = @info['id']
       @name = @info['name']

@@ -127,6 +127,10 @@ module CURIC::Rubiny
       end
     end
 
+    def loaded(snippet)
+      @dialog.execute_script("app.loadedSnippet('#{snippet.id}')")
+    end
+
     def get_snippet(snippet_data)
       p "Get Snippet: #{snippet_data['id']}"
       id = snippet_data['id']
@@ -154,6 +158,8 @@ module CURIC::Rubiny
       snippet = const.new(snippet_data)
 
       CURIC::Rubiny.register_snippet(snippet)
+
+      loaded(snippet)
 
       snippet
     end
