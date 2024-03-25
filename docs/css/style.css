@@ -28,6 +28,11 @@ p {
 .el-card {
   margin: 5px;
 }
+
+.el-card__header {
+  padding: 5px 10px;
+}
+
 .bar {
   display: flex;
   align-items: center;

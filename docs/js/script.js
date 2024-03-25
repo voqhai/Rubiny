@@ -38,6 +38,10 @@ function createVueApp() {
             console.error('There has been a problem with your fetch operation:', error);
           });
       },
+      updateValue(snippet) {
+        console.log('Updating snippet:', snippet, snippet.value);
+        this.call('update', snippet);
+      },
       play(id){
         this.call('play', id);
       }

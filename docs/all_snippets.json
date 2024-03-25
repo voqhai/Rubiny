@@ -29,13 +29,13 @@
       "additional_files": [
 
       ],
-      "template": "<el-slider v-model='sliderValue' min='0' max='360'></el-slider> ",
       "component": "el-slider",
       "props": {
         "min": 0,
         "max": 360,
         "value": 180
-      }
+      },
+      "value": 180
     }
   ]
 }
