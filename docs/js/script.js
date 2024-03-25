@@ -85,8 +85,8 @@ function createVueApp() {
       install(snippet){
         this.call('install', snippet);
       },
-      remove(snippet){
-        this.call('remove', snippet);
+      uninstall(snippet){
+        this.call('uninstall', snippet);
       },
       update(snippet){
         this.call('update', snippet);

@@ -23,8 +23,8 @@ module CURIC::Rubiny
         play
       end
 
-      self.small_icon = File.join(PATH_R, 'icon.png')
-      self.large_icon = File.join(PATH_R, 'icon.png')
+      self.small_icon = File.join(PATH_R, ICON_EX)
+      self.large_icon = File.join(PATH_R, ICON_EX)
 
       self.tooltip = @info['description']
       self.status_bar_text = @info['description']

@@ -97,8 +97,8 @@ module CURIC::Rubiny
       end
     end
 
-    def remove(snippet_data)
-      CURIC::Rubiny.remove(snippet_data)
+    def uninstall(snippet_data)
+      CURIC::Rubiny.uninstall(snippet_data)
     end
 
     def update(snippet_data)

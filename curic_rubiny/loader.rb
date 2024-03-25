@@ -9,9 +9,10 @@ module CURIC
 
     LOCAL_DIR = File.join(PATH, 'local').freeze
     PATH_R = File.join(PATH, 'Resources').freeze
+    ICON_EX = Sketchup.platform == :platform_osx ? 'pdf' : 'svg'
 
-    Sketchup.require "#{PATH}/js_loader"
     Sketchup.require "#{PATH}/command"
+    Sketchup.require "#{PATH}/js_loader"
     Sketchup.require "#{PATH}/snippets"
 
     def self.read_json(file)
@@ -27,7 +28,7 @@ module CURIC
       status = @snippets.add(snippet)
       return unless status
 
-      @extension_menu.add_item(snippet)
+      @snippets_menu.add_item(snippet)
     end
 
     def self.install(snippet)
@@ -47,8 +48,8 @@ module CURIC
       save_to_temp(json_file, JSON.pretty_generate(data))
     end
 
-    def self.remove(id)
-      # p "Remove #{id}"
+    def self.uninstall(id)
+      # p "uninstall #{id}"
     end
 
     def self.update(id)
@@ -115,12 +116,26 @@ module CURIC
 
     unless file_loaded?(__FILE__)
       @extension_menu = UI.menu('Extensions').add_submenu(PLUGIN_ID)
+      @snippets_menu = @extension_menu.add_submenu('Snippets')
 
       reload!
 
       UI.add_context_menu_handler do |context_menu|
         @snippets.build_context_menu(context_menu)
       end
+
+      cmd = UI::Command.new(PLUGIN_ID) { build }
+      cmd.menu_text = 'Build Snippets'
+      cmd.status_bar_text = 'Build Snippets'
+      cmd.small_icon = File.join(PATH_R, "icon.#{ICON_EX}")
+      cmd.large_icon = File.join(PATH_R, "icon.#{ICON_EX}")
+
+      toolbar = UI::Toolbar.new(PLUGIN_ID)
+      toolbar.add_item(cmd)
+
+      @extension_menu.add_item(cmd)
+
+      UI.start_timer(0.1, false) { toolbar.restore }
 
       file_loaded(__FILE__)
     end
