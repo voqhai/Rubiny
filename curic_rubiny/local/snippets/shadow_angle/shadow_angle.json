@@ -1,17 +1,21 @@
 {
+  "name": "Shadow Angle",
+  "description": "A simple snippet to adjust the angle of a shadow",
   "additional_files": [
 
   ],
+  "author": "Curic",
   "component": "el-slider",
-  "description": "A simple snippet to adjust the angle of a shadow",
   "id": "shadow_angle",
   "image": null,
-  "name": "Shadow Angle",
+  "installed": false,
+  "loaded": false,
   "props": {
     "max": 360,
     "min": 0,
     "value": 180
   },
   "ruby_file": "snippets/shadow_angle/shadow_angle.rb",
-  "value": 180
+  "value": 180,
+  "version": "0.0.1"
 }

@@ -71,11 +71,7 @@ module CURIC::Rubiny
       puts 'Sync Local Snippets'
 
       installed = PLUGIN.snippets.find_all(&:installed?)
-      installed_ids = installed.map(&:id)
-      p 'Installed IDs:'
-      ap installed_ids
-
-      @dialog.execute_script("app.installed = #{installed_ids.to_json};")
+      @dialog.execute_script("app.installed = #{installed.map(&:info).to_json};")
     end
 
     def loadrb(file, content)

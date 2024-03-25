@@ -27,7 +27,12 @@
               <div>
                 <el-button-group>
                   <el-button size="mini" type="primary" @click="play(snippet)"> <i class="el-icon-video-play"></i> Play</el-button>
-                  <el-button size="mini" @click="install(snippet)"> <i class="el-icon-download"></i> Install</el-button>
+                  <template v-if="snippet.installed">
+                    <el-button size="mini" @click="uninstall(snippet)"> <i class="el-icon-delete"></i> Uninstall</el-button>
+                  </template>
+                  <template v-else>
+                    <el-button size="mini" @click="install(snippet)"> <i class="el-icon-download"></i> Install</el-button>
+                  </template>
                 </el-button-group>
               </div>
             </div>

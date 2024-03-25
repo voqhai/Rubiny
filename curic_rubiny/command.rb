@@ -22,6 +22,12 @@ module CURIC::Rubiny
       super(@name) do
         play
       end
+
+      self.small_icon = File.join(PATH_R, 'icon.png')
+      self.large_icon = File.join(PATH_R, 'icon.png')
+
+      self.tooltip = @info['description']
+      self.status_bar_text = @info['description']
     end
 
     def installed?
@@ -40,6 +46,10 @@ module CURIC::Rubiny
       return unless use_context_menu?
 
       context_menu.add_item(self)
+    end
+
+    def use_context_menu?
+      false
     end
   end
 end

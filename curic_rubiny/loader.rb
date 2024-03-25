@@ -8,6 +8,7 @@ module CURIC
     @source_files ||= []
 
     LOCAL_DIR = File.join(PATH, 'local').freeze
+    PATH_R = File.join(PATH, 'Resources').freeze
 
     Sketchup.require "#{PATH}/js_loader"
     Sketchup.require "#{PATH}/command"
@@ -106,14 +107,16 @@ module CURIC
       end
     end
 
-    unless file_loaded?(__FILE__)
-      @extension_menu = UI.menu('Extensions').add_item(PLUGIN_ID)
-
+    def self.reload!
       @snippets = Snippets.new
-
       build
-
       load_snippets
+    end
+
+    unless file_loaded?(__FILE__)
+      @extension_menu = UI.menu('Extensions').add_submenu(PLUGIN_ID)
+
+      reload!
 
       UI.add_context_menu_handler do |context_menu|
         @snippets.build_context_menu(context_menu)

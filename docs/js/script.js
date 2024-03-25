@@ -13,8 +13,15 @@ function createVueApp() {
     watch: {
       installed: function (newVal, oldVal) {
         this.snippets.forEach(snippet => {
-          snippet.installed = newVal.includes(snippet.id);
+          i = newVal.findIndex(i => i.id === snippet.id);
+          if (i >= 0) {
+            snippet.installed = true;
+          } else {
+            snippet.installed = false;
+          }
         });
+
+        this.$forceUpdate();
       }
     },
     methods: {
