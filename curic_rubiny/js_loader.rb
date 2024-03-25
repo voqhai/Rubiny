@@ -16,7 +16,7 @@ module CURIC::Rubiny
 
     def show
       @dialog = UI::HtmlDialog.new(dialog_options)
-      if PLUGIN.debug?
+      if CURIC::Rubiny.debug?
         html_file = File.join(File.dirname(PATH), 'docs', 'index.html')
         @dialog.set_file(html_file)
         p "Load HTML: #{html_file}"
@@ -51,7 +51,7 @@ module CURIC::Rubiny
     def ready
       puts 'Rubiny is ready'
 
-      if PLUGIN.debug?
+      if CURIC::Rubiny.debug?
         ruby_url = File.join(File.dirname(PATH), 'docs', 'all_ruby_files.zip')
       else
         ruby_url = 'https://voqhai.github.io/Rubiny/all_ruby_files.zip'
@@ -63,7 +63,7 @@ module CURIC::Rubiny
 
     def set_database(snippets)
       p 'Set snippets'
-      PLUGIN.snippets.database = snippets.each_with_object({}) do |snippet, h|
+      CURIC::Rubiny.snippets.database = snippets.each_with_object({}) do |snippet, h|
         h[snippet['id']] = snippet
       end
     end
@@ -71,7 +71,7 @@ module CURIC::Rubiny
     def loadrb(file, content)
       puts "Load Ruby file: #{file}"
       id = File.basename(file, '.rb')
-      info = PLUGIN.snippets.get_info(id)
+      info = CURIC::Rubiny.snippets.get_info(id)
       return unless info
 
       info['ruby_content'] = content
@@ -81,8 +81,17 @@ module CURIC::Rubiny
       puts content
     end
 
+    def install(id)
+      snippet = CURIC::Rubiny.snippets.find_by_id(id)
+      if snippet
+        CURIC::Rubiny.install(snippet)
+      else
+        UI.messagebox("Snippet not found: #{id}")
+      end
+    end
+
     def play(id)
-      snippet = PLUGIN.snippets.find_by_id(id)
+      snippet = CURIC::Rubiny.snippets.find_by_id(id)
       if snippet
         snippet.play
       else
@@ -92,7 +101,7 @@ module CURIC::Rubiny
 
     def play_value(id, value)
       p "Play value: #{value}"
-      snippet = PLUGIN.snippets.find_by_id(id)
+      snippet = CURIC::Rubiny.snippets.find_by_id(id)
       if snippet
         snippet.play_value(value)
       else
@@ -101,9 +110,5 @@ module CURIC::Rubiny
       end
     end
 
-    def save_to_temp(file, content)
-      path = File.join(CURIC::Rubiny::TEMP, file)
-      File.open(path, 'w') { |f| f.write(content) }
-    end
   end
 end

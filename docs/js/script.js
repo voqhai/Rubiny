@@ -44,6 +44,9 @@ function createVueApp() {
       },
       play(id){
         this.call('play', id);
+      },
+      install(id){
+        this.call('install', id);
       }
     },
     computed: {

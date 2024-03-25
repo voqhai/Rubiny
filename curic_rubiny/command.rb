@@ -17,6 +17,5 @@ module CURIC::Rubiny
     def play_value(value)
       # the first method to be called when the command is executed
     end
-
   end
 end
