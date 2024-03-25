@@ -1,5 +1,5 @@
 module CURIC::Rubiny
-  class FindFaces < Snippet
+  class FindFace < Snippet
     def initialize(*args)
       super(*args)
     end
