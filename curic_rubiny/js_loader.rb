@@ -150,6 +150,7 @@ module CURIC::Rubiny
       const = CURIC::Rubiny.const_get(class_name)
       return unless const
 
+      p "Constant: #{const}"
       snippet = const.new(snippet_data)
 
       CURIC::Rubiny.register_snippet(snippet)
