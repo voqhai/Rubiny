@@ -14,7 +14,13 @@ module CURIC::Rubiny
     end
 
     def [](index)
-      @snippets[index]
+      if index.is_a?(Integer)
+        @snippets[index]
+      elsif index.is_a?(String)
+        find_by_id(index)
+      else
+        raise 'Invalid index type'
+      end
     end
 
     def get_info(id)

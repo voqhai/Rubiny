@@ -86,8 +86,9 @@ module CURIC::Rubiny
       puts content
     end
 
-    def install(id)
-      snippet = CURIC::Rubiny.snippets.find_by_id(id)
+    def install(snippet_data)
+      id = snippet_data['id']
+      snippet = get_snippet(snippet_data)
       if snippet
         CURIC::Rubiny.install(snippet)
       else
@@ -95,16 +96,17 @@ module CURIC::Rubiny
       end
     end
 
-    def remove(id)
-      CURIC::Rubiny.remove(id)
+    def remove(snippet_data)
+      CURIC::Rubiny.remove(snippet_data)
     end
 
-    def update(id)
-      p "Update: #{id}"
+    def update(snippet_data)
+      p "Update: #{snippet_data}"
     end
 
-    def play(id)
-      snippet = CURIC::Rubiny.snippets.find_by_id(id)
+    def play(snippet_data)
+      id = snippet_data['id']
+      snippet = get_snippet(snippet_data)
       if snippet
         snippet.play
       else
@@ -112,15 +114,47 @@ module CURIC::Rubiny
       end
     end
 
-    def play_value(id, value)
+    def play_value(snippet_data)
+      value = snippet_data['value']
       p "Play value: #{value}"
-      snippet = CURIC::Rubiny.snippets.find_by_id(id)
+      id = snippet_data['id']
+      snippet = get_snippet(snippet_data)
       if snippet
         snippet.play_value(value)
       else
         # Missing Ruby Snippet Object
         UI.messagebox("Snippet not found: #{id}")
       end
+    end
+
+    def get_snippet(snippet_data)
+      p "Get Snippet: #{snippet_data['id']}"
+      id = snippet_data['id']
+      snippet = CURIC::Rubiny.snippets[id]
+      return snippet if snippet
+
+      # Not installed or loaded
+      # Try loadrb if available ruby_content
+      ruby_file = snippet_data['ruby_file']
+      p "Ruby File: #{ruby_file}"
+      return unless ruby_file
+
+      ruby_content = snippet_data['ruby_content']
+      puts "Ruby Content: #{ruby_content}"
+      return unless ruby_content
+
+      # load ruby content
+      eval(ruby_content)
+
+      class_name = id.split('_').map(&:capitalize).join
+      const = CURIC::Rubiny.const_get(class_name)
+      return unless const
+
+      snippet = const.new(snippet_data)
+
+      CURIC::Rubiny.register_snippet(snippet)
+
+      snippet
     end
   end
 end

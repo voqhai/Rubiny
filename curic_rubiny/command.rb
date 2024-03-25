@@ -1,11 +1,13 @@
 module CURIC::Rubiny
   class Snippet < UI::Command
-    attr_accessor :info, :id
+    attr_accessor :info, :id, :name
 
-    def initialize(id)
-      @id = id
-      @info = CURIC::Rubiny.snippets.get_info(@id)
-      super(@info['name']) do
+    def initialize(props)
+      @info = props
+      @id = @info['id']
+      @name = @info['name']
+
+      super(@name) do
         play
       end
     end

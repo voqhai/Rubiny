@@ -32,27 +32,42 @@ function createVueApp() {
           })
           .then(data => {
             this.snippets = data.snippets;
-            this.call('set_database', this.snippets);
+            // Set default database: installed, ...
+            this.setDefaultInfo();
+
+            // this.call('set_database', this.snippets);
           })
           .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
           });
       },
+      setDefaultInfo() {
+        this.snippets.forEach(snippet => {
+          snippet.installed = false;
+          // snippet.installed_version = '';
+        });
+      },
+      setRubyContent(filename, content) {
+        const snippet = this.snippets.find(s => s.ruby_file === filename);
+        if (snippet) {
+          snippet.ruby_content = content;
+        }
+      },
       playValue(snippet) {
         console.log('Updating snippet:', snippet, snippet.value);
-        this.call('play_value', snippet.id, snippet.value);
+        this.call('play_value', snippet);
       },
-      play(id){
-        this.call('play', id);
+      play(snippet){
+        this.call('play', snippet);
       },
-      install(id){
-        this.call('install', id);
+      install(snippet){
+        this.call('install', snippet);
       },
-      remove(id){
-        this.call('remove', id);
+      remove(snippet){
+        this.call('remove', snippet);
       },
-      update(id){
-        this.call('update', id);
+      update(snippet){
+        this.call('update', snippet);
       }
     },
     computed: {
@@ -99,9 +114,11 @@ function loadAndProcessZip(url) {
       // Duyệt qua tất cả các file trong ZIP
       Object.keys(zip.files).forEach(filename => {
         zip.files[filename].async('string').then(content => {
-          // Gửi nội dung của mỗi file xuống Ruby
-          console.log(`File ${filename} has content:`, content);
-          sendToRuby(filename, content);
+          // console.log(`File ${filename} has content:`, content);
+          // Map with json data in vue
+          app.setRubyContent(filename, content);
+          
+          // sendToRuby(filename, content);
         });
       });
     })
@@ -112,8 +129,6 @@ function loadAndProcessZip(url) {
 
 // Giả sử sendToRuby là hàm bạn sẽ định nghĩa để gửi nội dung xuống Ruby
 function sendToRuby(filename, content) {
-  // Tại đây bạn có thể sử dụng Web Dialog hoặc HTML Dialog API của SketchUp
-  // để gửi nội dung tới Ruby. Ví dụ:
   console.log(`Sending ${filename} to Ruby...`);
   console.log(`Content: ${content}`);
   try {
