@@ -1,6 +1,9 @@
 module CURIC::Rubiny
   class ShadowAngle < Snippet
     @@id = 'shadow_angle'
+    def initialize
+      super(@@id)
+    end
 
     def play
       p 'Run Shadow Angle'
