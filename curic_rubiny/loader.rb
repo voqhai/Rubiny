@@ -46,6 +46,10 @@ module CURIC
       data = info.dup
       data.delete('ruby_content')
       save_to_temp(json_file, JSON.pretty_generate(data))
+
+      true
+    rescue
+      false
     end
 
     def self.uninstall(id)
@@ -58,7 +62,7 @@ module CURIC
 
     def self.build
       # @snippets = Snippets.new
-      JSLoader.show
+      JSLoader.toggle
     end
 
     def self.save_to_temp(file, content)

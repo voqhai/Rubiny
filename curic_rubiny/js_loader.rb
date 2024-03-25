@@ -40,8 +40,8 @@ module CURIC::Rubiny
         height: 600,
         left: 100,
         top: 100,
-        min_width: 50,
-        min_height: 50,
+        min_width: 400,
+        min_height: 400,
         max_width:10000,
         max_height: 10000,
         style: UI::HtmlDialog::STYLE_DIALOG
@@ -70,6 +70,8 @@ module CURIC::Rubiny
     def sync_local_snippets
       puts 'Sync Local Snippets'
 
+      PLUGIN.snippets.each(&:check_installed)
+
       installed = PLUGIN.snippets.find_all(&:installed?)
       @dialog.execute_script("app.installed = #{installed.map(&:info).to_json};")
     end
@@ -92,6 +94,8 @@ module CURIC::Rubiny
       snippet = get_snippet(snippet_data)
       if snippet
         CURIC::Rubiny.install(snippet)
+        snippet.installed = true
+        sync_local_snippets
       else
         UI.messagebox("Snippet not found: #{id}")
       end
@@ -128,6 +132,11 @@ module CURIC::Rubiny
       end
     end
 
+    # Get value of snippet to set on UI
+    def get_value(snippet_data)
+      p "Get Value: #{snippet_data['id']}"
+    end
+
     def loaded(snippet)
       @dialog.execute_script("app.loadedSnippet('#{snippet.id}')")
     end
@@ -151,8 +160,7 @@ module CURIC::Rubiny
       # load ruby content
       eval(ruby_content)
 
-      class_name = id.split('_').map(&:capitalize).join
-      const = CURIC::Rubiny.const_get(class_name)
+      const = Snippet.const(id)
       return unless const
 
       p "Constant: #{const}"

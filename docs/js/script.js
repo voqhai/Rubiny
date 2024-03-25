@@ -6,6 +6,8 @@ function createVueApp() {
       search: '',
       snippets: [],
       installed: [],
+      windowWidth: window.innerWidth,
+      windowHeight: window.innerHeight,
     },
     created() {
       this.fetchSnippets();
@@ -67,6 +69,11 @@ function createVueApp() {
         const snippet = this.snippets.find(s => s.ruby_file === filename);
         if (snippet) {
           snippet.ruby_content = content;
+
+          // After has ruby content, now we can get value of snippet by run ruby code
+          if (snippet.component) {
+            sketchup.call('get_value', snippet);
+          }
         }
       },
       loadedSnippet(id) {
@@ -77,7 +84,7 @@ function createVueApp() {
       },
       hasNewVersion(snippet) {
         i = this.installed.find(s => s.id === snippet.id)
-        if (i >= 0) {
+        if (i) {
           return i.version != snippet.version;
         }
 
@@ -98,6 +105,10 @@ function createVueApp() {
       },
       update(snippet){
         this.call('update', snippet);
+      },
+      onResize() {
+        this.windowWidth = window.innerWidth;
+        this.windowHeight = window.innerHeight;
       }
     },
     computed: {
@@ -114,6 +125,9 @@ function createVueApp() {
       } catch (error) {
         console.error(error);        
       }
+
+      // Add event resize for window
+      window.addEventListener('resize', this.onResize);
     },
   });
 }

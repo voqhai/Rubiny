@@ -1,5 +1,13 @@
 module CURIC::Rubiny
   class Snippet < UI::Command
+    def self.class_name(id)
+      id.split('_').map(&:capitalize).join
+    end
+
+    def self.const(id)
+      CURIC::Rubiny.const_get(class_name(id))
+    end
+
     attr_accessor :info, :id, :name
     attr_writer :installed
 
@@ -32,6 +40,17 @@ module CURIC::Rubiny
 
     def installed?
       @installed
+    end
+
+    def check_installed
+      ruby_file = @info['ruby_file']
+      return false unless ruby_file
+
+      full_path = File.join(LOCAL_DIR, ruby_file)
+
+      self.installed = File.exist?(full_path)
+
+      installed?
     end
 
     def play

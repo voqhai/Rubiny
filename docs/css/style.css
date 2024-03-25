@@ -21,8 +21,8 @@ p {
 }
 
 .logo img {
-  width: 100px;
-  height: 100px;
+  width: 64px;
+  height: 64px;
 }
 
 .el-card {
@@ -50,6 +50,9 @@ p {
 .bar.right {
   justify-content: flex-end;
 }
+.snippets {
+  overflow: auto;
+}
 
 .snippet-thumbnail {
   width: 64px;
@@ -66,4 +69,10 @@ p {
 .snippet-description {
   font-size: 14px;
   color: #666;
+}
+
+.snippet-version {
+  font-size: 12px;
+  color: #999;
+  font-style: italic;  
 }
