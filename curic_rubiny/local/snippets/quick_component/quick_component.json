@@ -1,14 +1,14 @@
 {
-  "name": "Quick Component",
-  "description": "Make Component without any configuration",
   "additional_files": [
 
   ],
   "author": "Curic",
+  "description": "Make Component without any configuration",
   "id": "quick_component",
   "image": null,
-  "installed": false,
+  "installed": true,
   "loaded": false,
+  "name": "Quick Component",
   "ruby_file": "snippets/quick_component/quick_component.rb",
   "version": "0.0.1"
 }

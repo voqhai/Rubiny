@@ -2,6 +2,7 @@ module CURIC
   module Rubiny
     class << self
       attr_accessor :snippets, :source_files, :debug, :local_snippets
+      attr_accessor :commnads
       attr_reader :extension_menu
     end
 
@@ -31,7 +32,9 @@ module CURIC
       end
 
       snippet.installed = true
+
       @snippets_menu.add_item(snippet)
+      @commnads[snippet.id] = snippet
     end
 
     def self.install(snippet)
@@ -147,6 +150,8 @@ module CURIC
     unless file_loaded?(__FILE__)
       @extension_menu = UI.menu('Extensions').add_submenu(PLUGIN_ID)
       @snippets_menu = @extension_menu.add_submenu('Snippets')
+
+      @commnads = {}
 
       reload!
 

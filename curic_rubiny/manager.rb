@@ -105,6 +105,8 @@ module CURIC::Rubiny
     end
 
     def uninstall(snippet_data)
+      return unless UI.messagebox("Remove #{snippet_data['name']}\nAre you sure?", MB_YESNO) == IDYES
+
       snippet = get_snippet(snippet_data)
       status = CURIC::Rubiny.uninstall(snippet_data['id'])
 
@@ -120,6 +122,7 @@ module CURIC::Rubiny
         status = CURIC::Rubiny.update(snippet, snippet_data)
         if status
           UI.messagebox("Snippet updated: #{snippet.name}")
+          sync_local_snippets
         else
           UI.messagebox("Failed to update snippet: #{snippet.name}")
         end
