@@ -55,6 +55,7 @@ module CURIC
 
     def self.uninstall(id)
       # p "uninstall #{id}"
+      @snippets.remove(id)
       dir = File.join(CURIC::Rubiny::LOCAL_DIR, 'snippets', id)
       return false unless File.directory?(dir)
 

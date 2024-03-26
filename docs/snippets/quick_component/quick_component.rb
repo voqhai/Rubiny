@@ -7,7 +7,27 @@ module CURIC::Rubiny
     end
 
     def play
-      UI.messagebox('Quick Component')
+      model = Sketchup.active_model
+      selection = model.selection
+
+      # remove locked entities
+      selection = selection.reject { |e| e.locked? }
+      return if selection.empty?
+
+      model.start_operation('Quick Component', true)
+      # create group
+      group = model.active_entities.add_group(selection)
+      group.name = defalt_name
+
+      # create component
+      component = group.to_component
+      # component.definition.name = defalt_name
+
+      model.commit_operation
+
+      # clear selection
+      model.selection.clear
+      model.selection.add(component)
     end
 
     def use_context_menu?
