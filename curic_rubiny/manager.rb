@@ -1,5 +1,5 @@
 module CURIC::Rubiny
-  module JSLoader
+  module Manager
     class << self
       attr_accessor :dialog
     end
@@ -90,45 +90,63 @@ module CURIC::Rubiny
     end
 
     def install(snippet_data)
-      id = snippet_data['id']
       snippet = get_snippet(snippet_data)
       if snippet
-        CURIC::Rubiny.install(snippet)
-        snippet.installed = true
+        status = CURIC::Rubiny.install(snippet)
+        if status
+          UI.messagebox("Snippet installed: #{snippet.name}")
+        else
+          UI.messagebox("Failed to install snippet: #{snippet.name}")
+        end
         sync_local_snippets
       else
-        UI.messagebox("Snippet not found: #{id}")
+        UI.messagebox("Snippet not found")
       end
     end
 
     def uninstall(snippet_data)
-      CURIC::Rubiny.uninstall(snippet_data)
+      snippet = get_snippet(snippet_data)
+      status = CURIC::Rubiny.uninstall(snippet_data['id'])
+
+      snippet.installed = status
+
+      sync_local_snippets
     end
 
     def update(snippet_data)
-      p "Update: #{snippet_data}"
+      p "Update: #{snippet_data['id']}"
+      snippet = get_snippet(snippet_data)
+      if snippet
+        status = CURIC::Rubiny.update(snippet, snippet_data)
+        if status
+          UI.messagebox("Snippet updated: #{snippet.name}")
+        else
+          UI.messagebox("Failed to update snippet: #{snippet.name}")
+        end
+      else
+        UI.messagebox("Snippet not found")
+      end
     end
 
     def play(snippet_data)
-      id = snippet_data['id']
       snippet = get_snippet(snippet_data)
       if snippet
         snippet.play
       else
-        UI.messagebox("Snippet not found: #{id}")
+        UI.messagebox("Snippet not found!")
       end
     end
 
     def play_value(snippet_data)
       value = snippet_data['value']
       p "Play value: #{value}"
-      id = snippet_data['id']
+
       snippet = get_snippet(snippet_data)
       if snippet
         snippet.play_value(value)
       else
         # Missing Ruby Snippet Object
-        UI.messagebox("Snippet not found: #{id}")
+        UI.messagebox("Snippet not found!")
       end
     end
 
@@ -142,35 +160,7 @@ module CURIC::Rubiny
     end
 
     def get_snippet(snippet_data)
-      p "Get Snippet: #{snippet_data['id']}"
-      id = snippet_data['id']
-      snippet = CURIC::Rubiny.snippets[id]
-      return snippet if snippet
-
-      # Not installed or loaded
-      # Try loadrb if available ruby_content
-      ruby_file = snippet_data['ruby_file']
-      p "Ruby File: #{ruby_file}"
-      return unless ruby_file
-
-      ruby_content = snippet_data['ruby_content']
-      puts "Ruby Content: #{ruby_content}"
-      return unless ruby_content
-
-      # load ruby content
-      eval(ruby_content)
-
-      const = Snippet.const(id)
-      return unless const
-
-      p "Constant: #{const}"
-      snippet = const.new(snippet_data)
-
-      CURIC::Rubiny.register_snippet(snippet)
-
-      loaded(snippet)
-
-      snippet
+      CURIC::Rubiny.snippets[snippet_data['id']] || CURIC::Rubiny.snippets.create(snippet_data)
     end
   end
 end

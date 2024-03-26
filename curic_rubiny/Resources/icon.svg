@@ -44,38 +44,38 @@
          id="g14"
          clip-path="url(#clipPath18)">
         <path
-           d="M 87.99998,80 H 72 L 60.68629,68.68629 87.99998,32.00002 115.3137,68.68629 104,79.99998 Z"
+           d="m 72,80 -11.99997,-11.99998 28.00003,-28 L 116,68 104,80 H 71.99999 Z"
            style="fill:#f93635;fill-opacity:1;fill-rule:nonzero;stroke:none"
            id="path20" />
         <g
            id="g22"
            transform="matrix(1,0,0,-1,0,128)">
           <path
-             d="M 87.99998,48 H 72 L 60.68629,59.31371 87.99998,95.99998 115.3137,59.31371 104,48.00002 Z"
+             d="m 72,48 -11.99997,11.99998 28.00003,28 L 116,60 104,48 H 71.99999 Z"
              style="fill:none;stroke:#ca2b2b;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
              id="path24" />
         </g>
         <path
-           d="M 32,48.00001 H 21.33333 L 13.79086,40.4575 32,15.99996 50.20914,40.4575 42.66668,48.00001 Z"
+           d="M 22.28568,50.28572 12,40.00002 36.00001,16.00004 59.99996,40.00002 49.71424,50.28572 Z"
            style="fill:#f93635;fill-opacity:1;fill-rule:nonzero;stroke:none"
            id="path26" />
         <g
            id="g28"
            transform="matrix(1,0,0,-1,0,128)">
           <path
-             d="M 32,79.99999 H 21.33333 L 13.79086,87.5425 32,112 50.20914,87.5425 42.66668,79.99999 Z"
+             d="M 22.28568,77.71428 12,87.99998 36.00001,112 59.99996,87.99998 49.71424,77.71428 Z"
              style="fill:none;stroke:#ca2b2b;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
              id="path30" />
         </g>
         <path
-           d="M 40,112 H 29.33334 L 21.79087,104.4575 40,80 58.20915,104.4575 50.66668,112 Z"
+           d="M 28.57139,104.5714 19.99999,95.99998 40,76 59.99995,95.99997 51.42852,104.5714 Z"
            style="fill:#f93635;fill-opacity:1;fill-rule:nonzero;stroke:none"
            id="path32" />
         <g
            id="g34"
            transform="matrix(1,0,0,-1,0,128)">
           <path
-             d="M 40,16.00001 H 29.33334 L 21.79087,23.54247 40,48 58.20915,23.54248 50.66668,16.00001 Z"
+             d="M 28.57139,23.42861 19.99999,32.00002 40,52 59.99995,32.00003 51.42852,23.42861 Z"
              style="fill:none;stroke:#ca2b2b;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
              id="path36" />
         </g>

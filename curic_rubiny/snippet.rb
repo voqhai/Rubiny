@@ -26,6 +26,8 @@ module CURIC::Rubiny
       @name = @info['name']
 
       @installed = false
+      @evaluated = false
+      @loaded = false
 
       super(@name) do
         play

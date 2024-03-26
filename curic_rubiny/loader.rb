@@ -11,8 +11,8 @@ module CURIC
     PATH_R = File.join(PATH, 'Resources').freeze
     ICON_EX = Sketchup.platform == :platform_osx ? 'pdf' : 'svg'
 
-    Sketchup.require "#{PATH}/command"
-    Sketchup.require "#{PATH}/js_loader"
+    Sketchup.require "#{PATH}/snippet"
+    Sketchup.require "#{PATH}/manager"
     Sketchup.require "#{PATH}/snippets"
 
     def self.read_json(file)
@@ -25,14 +25,63 @@ module CURIC
     end
 
     def self.register_snippet(snippet)
-      status = @snippets.add(snippet)
-      return unless status
+      unless @snippets[snippet.id]
+        status = @snippets.add(snippet)
+        return unless status
+      end
 
+      snippet.installed = true
       @snippets_menu.add_item(snippet)
     end
 
     def self.install(snippet)
-      p "Install #{snippet.id}"
+      save_to_local(snippet)
+
+      installed = true
+    rescue => e
+      puts e
+      installed = false
+    ensure
+      register_snippet(snippet) if installed
+
+      installed
+    end
+
+    def self.uninstall(id)
+      # p "uninstall #{id}"
+      dir = File.join(CURIC::Rubiny::LOCAL_DIR, 'snippets', id)
+      return false unless File.directory?(dir)
+
+      FileUtils.rm_rf(dir)
+
+      true
+    rescue => e
+      puts e
+      false
+    end
+
+    def self.update(snippet, new_info)
+      # p "Update #{id}"
+      snippet.info = new_info
+      save_to_local(snippet)
+
+      updated = true
+    rescue => e
+      puts e
+      updated = false
+    ensure
+      updated
+    end
+
+    def self.build
+      Manager.toggle
+    end
+
+    def self.save_to_temp(file, content)
+      File.open(file, 'w') { |f| f.write(content) }
+    end
+
+    def self.save_to_local(snippet)
       info = snippet.info
       ruby_file = info['ruby_file']
       file = File.join(CURIC::Rubiny::LOCAL_DIR, ruby_file)
@@ -46,30 +95,9 @@ module CURIC
       data = info.dup
       data.delete('ruby_content')
       save_to_temp(json_file, JSON.pretty_generate(data))
-
-      true
-    rescue
-      false
     end
 
-    def self.uninstall(id)
-      # p "uninstall #{id}"
-    end
-
-    def self.update(id)
-      # p "Update #{id}"
-    end
-
-    def self.build
-      # @snippets = Snippets.new
-      JSLoader.toggle
-    end
-
-    def self.save_to_temp(file, content)
-      File.open(file, 'w') { |f| f.write(content) }
-    end
-
-    def self.load_snippets
+    def self.load_local_snippets
       dir = File.join(CURIC::Rubiny::LOCAL_DIR, 'snippets')
 
       # Duyệt qua tất cả các folder trong thư mục snippets
@@ -101,12 +129,10 @@ module CURIC
           next
         end
 
-        class_name = id.split('_').map(&:capitalize).join
-        const = CURIC::Rubiny.const_get(class_name)
+        const = Snippet.const(id)
         next unless const
 
         snippet = const.new(info)
-        snippet.installed = true
 
         register_snippet(snippet)
       end
@@ -115,7 +141,7 @@ module CURIC
     def self.reload!
       @snippets = Snippets.new
       build
-      load_snippets
+      load_local_snippets
     end
 
     unless file_loaded?(__FILE__)
