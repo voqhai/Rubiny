@@ -70,6 +70,10 @@ module CURIC::Rubiny
       # the first method to be called when the command is executed
     end
 
+    def get_value
+      #
+    end
+
     def context_menu(context_menu)
       return unless use_context_menu?
 
