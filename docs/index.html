@@ -5,6 +5,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Rubiny</title>
       <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+      <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
       <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
@@ -41,18 +43,35 @@
                   </div>
                 </div>
                 <div>
-                  <el-button-group>
-                    <el-button size="mini" type="primary" @click="play(snippet)" title="Play snippet"> <i class="el-icon-video-play"></i></el-button>
+                  <!-- <el-button-group>
+                    <el-button size="mini" type="primary" @click="play(snippet)" title="Play snippet">PLay</el-button>
                     <template v-if="snippet.installed">
-                      <el-button size="mini" type="danger" @click="uninstall(snippet)" title="Uninstall"> <i class="el-icon-delete"></i></el-button>
+                      <el-button size="mini" type="danger" @click="uninstall(snippet)" title="Uninstall">Uninstall</el-button>
                     </template>
                     <template v-else>
-                      <el-button size="mini" type="success" @click="install(snippet)" title="Install"> <i class="el-icon-download"></i></el-button>
+                      <el-button size="mini" type="success" @click="install(snippet)" title="Install">Install</el-button>
                     </template>
                     <template v-if="hasNewVersion(snippet)">
-                      <el-button size="mini" type="success" @click="update(snippet)" title="Update"> <i class="el-icon-upload"></i> </el-button>
+                      <el-button size="mini" type="success" @click="update(snippet)" title="Update">Update</el-button>
                     </template>
-                  </el-button-group>
+                  </el-button-group> -->
+
+                  <div class="bar button-icon-group gap2">
+                    <span class="icon-button" @click="play(snippet)" title="Play snippet">  <i class="play bx bx-play-circle bx-border bx-sm"></i> </span>
+                    <template v-if="snippet.installed">
+                      <span class="icon-button" @click="uninstall(snippet)" title="Uninstall">  <i class="uninstall bx bxs-trash bx-border bx-sm"></i> </span>
+                    </template>
+                    <template v-else>
+                      <span class="icon-button" @click="install(snippet)" title="Install">  <i class="install bx bx-down-arrow-circle bx-border bx-sm"></i> </span>
+                    </template>
+                    <template v-if="hasNewVersion(snippet)">
+                      <span class="icon-button" @click="update(snippet)" title="Update">  <i class="update bx bx-up-arrow-circle bx-border bx-sm"></i> </span>
+                    </template>
+
+                    <template v-if="snippet.use_settings">
+                      <span class="icon-button" @click="showSettings(snippet)" title="Settings">  <i class="settings bx bx-cog bx-border bx-sm"></i> </span>
+                    </template>
+                  </div>
                 </div>
               </div>
             </div>
@@ -79,6 +98,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
     <script src="https://unpkg.com/element-ui@2.15.3/lib/index.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
     <script src="js/script.js"></script>
   </body>
 </html>

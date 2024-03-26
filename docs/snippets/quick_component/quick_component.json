@@ -4,5 +4,6 @@
   "description": "Make Component without any configuration",
   "version": "0.0.2",
   "author": "Curic",
+  "use_settings": true,
   "suggested_by": "Thamin Hiệp - VBO"
 }

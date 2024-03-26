@@ -163,6 +163,15 @@ module CURIC::Rubiny
       @dialog.execute_script("app.setSnippetValue('#{snippet.id}', #{value})")
     end
 
+    def show_settings(snippet_data)
+      snippet = get_snippet(snippet_data)
+      if snippet
+        snippet.show_settings
+      else
+        UI.messagebox("Snippet not found!")
+      end
+    end
+
     def loaded(snippet)
       @dialog.execute_script("app.loadedSnippet('#{snippet.id}')")
     end

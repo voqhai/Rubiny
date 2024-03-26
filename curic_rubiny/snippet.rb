@@ -86,5 +86,6 @@ module CURIC::Rubiny
     def snippet_validation_proc
       nil
     end
+
   end
 end

@@ -55,6 +55,14 @@ p {
   gap: 10px;
 }
 
+.gap5 {
+  gap: 5px;
+}
+
+.gap2 {
+  gap: 2px;
+}
+
 .snippets {
   overflow: auto;
 }
@@ -80,4 +88,45 @@ p {
   font-size: 8pt;
   color: #6d6d6d;
   font-style: italic;  
+}
+
+.bx-sm {
+  font-size: 1.25rem!important;
+}
+
+.icon-button {
+  cursor: pointer;
+}
+.icon-button:hover {
+  color: red;
+}
+
+.icon-button.disabled {
+  cursor: not-allowed;
+}
+
+.icon-button.disabled:hover {
+  color: #999;
+}
+
+.icon-button.active {
+  color: #333;
+}
+
+.icon-button.active:hover {
+  color: #333;
+}
+
+i.play {
+  color: green;
+}
+
+i.install {
+  color: green;
+}
+i.update {
+  color: orange;
+}
+i.uninstall {
+  color: red;
 }

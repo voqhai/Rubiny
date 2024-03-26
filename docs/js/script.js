@@ -147,6 +147,9 @@ function createVueApp() {
           });
         }
       },
+      showSettings(snippet){
+        this.call('show_settings', snippet);
+      },
       onResize() {
         this.windowWidth = window.innerWidth;
         this.windowHeight = window.innerHeight;
