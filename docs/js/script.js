@@ -82,6 +82,13 @@ function createVueApp() {
           }
         }
       },
+      setSnippetValue(id, value) {
+        console.log('Setting value for snippet:', id, value);
+        s = this.snippets.find(s => s.id === id);
+        if (s) {
+          s.value = value;
+        }
+      },
       loadedSnippet(id) {
         s = this.snippets.find(s => s.id === id);
         if (s) {

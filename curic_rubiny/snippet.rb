@@ -44,7 +44,6 @@ module CURIC::Rubiny
 
       validate = snippet_validation_proc
       self.set_validation_proc(&validate) if validate
-      self.extension = CURIC::Rubiny::PLUGIN_EX if self.respond_to?(:extension)
     end
 
     def installed?

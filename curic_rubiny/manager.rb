@@ -19,7 +19,7 @@ module CURIC::Rubiny
       if CURIC::Rubiny.debug?
         html_file = File.join(File.dirname(PATH), 'docs', 'index.html')
         @dialog.set_file(html_file)
-        p "Load HTML: #{html_file}"
+        p "Load HTML: #{html_file}" if PLUGIN.debug?
       else
         @dialog.set_url("https://voqhai.github.io/Rubiny/")
       end
@@ -49,7 +49,7 @@ module CURIC::Rubiny
     end
 
     def ready
-      puts 'Rubiny is ready'
+      puts 'Rubiny is ready' if PLUGIN.debug?
 
       if CURIC::Rubiny.debug?
         ruby_url = File.join(File.dirname(PATH), 'docs', 'all_ruby_files.zip')
@@ -69,7 +69,7 @@ module CURIC::Rubiny
 
     # Get snippets from local (installed)
     def sync_local_snippets
-      puts 'Sync Local Snippets'
+      puts 'Sync Local Snippets' if PLUGIN.debug?
 
       PLUGIN.snippets.each(&:check_installed)
 
@@ -78,7 +78,7 @@ module CURIC::Rubiny
     end
 
     def loadrb(file, content)
-      puts "Load Ruby file: #{file}"
+      puts "Load Ruby file: #{file}" if PLUGIN.debug?
       id = File.basename(file, '.rb')
       info = CURIC::Rubiny.snippets.get_info(id)
       return unless info
@@ -119,7 +119,7 @@ module CURIC::Rubiny
     end
 
     def update(snippet_data)
-      p "Update: #{snippet_data['id']}"
+      p "Update: #{snippet_data['id']}" if PLUGIN.debug?
       snippet = get_snippet(snippet_data)
       if snippet
         status = CURIC::Rubiny.update(snippet, snippet_data)
@@ -141,7 +141,7 @@ module CURIC::Rubiny
 
     def play_value(snippet_data)
       value = snippet_data['value']
-      p "Play value: #{value}"
+      p "Play value: #{value}" if PLUGIN.debug?
 
       snippet = get_snippet(snippet_data)
       if snippet
@@ -154,11 +154,13 @@ module CURIC::Rubiny
 
     # Get value of snippet to set on UI
     def get_value(snippet_data)
-      p "Get Value: #{snippet_data['id']}"
+      p "Get Value: #{snippet_data['id']}" #if PLUGIN.debug?
       snippet = get_snippet(snippet_data)
       return unless snippet
+
       value = snippet.get_value
-      @dialog.execute_script("app.setSnippetValue('#{snippet.id}', '#{value}')")
+      p "Value: #{value}" #if PLUGIN.debug?
+      @dialog.execute_script("app.setSnippetValue('#{snippet.id}', #{value})")
     end
 
     def loaded(snippet)
