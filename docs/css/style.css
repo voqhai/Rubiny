@@ -50,6 +50,11 @@ p {
 .bar.right {
   justify-content: flex-end;
 }
+
+.gap10 {
+  gap: 10px;
+}
+
 .snippets {
   overflow: auto;
 }
@@ -71,7 +76,7 @@ p {
   color: #666;
 }
 
-.snippet-version {
+.snippet-version, .snippet-author, .snippet-suggested-by {
   font-size: 12px;
   color: #999;
   font-style: italic;  

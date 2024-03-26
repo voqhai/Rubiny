@@ -6,6 +6,12 @@ function createVueApp() {
       search: '',
       snippets: [],
       installed: [],
+      sort: 'name',
+      sortTypes: [
+        { label: 'Name', value: 'name' },
+        { label: 'Created', value: 'created_at' },
+        { label: 'Updated', value: 'updated_at' },
+      ],
       windowWidth: window.innerWidth,
       windowHeight: window.innerHeight,
     },
@@ -137,11 +143,32 @@ function createVueApp() {
       onResize() {
         this.windowWidth = window.innerWidth;
         this.windowHeight = window.innerHeight;
-      }
+      },
+      sortSnippets(snippets, propName) {
+        return snippets.sort((a, b) => {
+          let propA = a[propName];
+          let propB = b[propName];
+      
+          // Đối với ngày tháng, chuyển đổi thành Date object để so sánh
+          if (propName === "created_at" || propName === "updated_at") {
+            propA = new Date(propA);
+            propB = new Date(propB);
+          }
+      
+          if (propA < propB) {
+            return -1;
+          }
+          if (propA > propB) {
+            return 1;
+          }
+          return 0; // không có sự thay đổi về thứ tự
+        });
+      },
     },
     computed: {
       filteredSnippets() {
-        return this.snippets.filter(snippet => {
+        sorted = this.sortSnippets(this.snippets, this.sort);
+        return sorted.filter(snippet => {
           const search = this.search.toLowerCase();
           return snippet.name.toLowerCase().includes(search) || snippet.description.toLowerCase().includes(search);
         });

@@ -18,7 +18,13 @@
 
     <div id="app">
       <template>
-        <el-input v-model="search" placeholder="Search snippets" class="search"></el-input>
+        <div class="bar gap10">
+          <el-input size="small" v-model="search" placeholder="Search snippets" class="search"></el-input>
+          <!-- sort -->
+          <el-select size="small" v-model="sort">
+            <el-option v-for="s in sortTypes" :label="'Sort by ' + s.label" :value="s.value" :key="s.value"></el-option>
+          </el-select>
+        </div>
         <el-divider></el-divider>
         <div class="snippets" :style="{height: windowHeight - 170 + 'px'}">
           <el-card v-for="snippet in filteredSnippets" :key="snippet.id" :body-style="{padding: '10px'}">
@@ -26,7 +32,13 @@
               <div class="bar">
                 <div>
                   <h4 class="snippet-name">{{ snippet.name }}</h4>
-                  <span class="snippet-version">({{snippet.version}})</span>
+                  <div>
+                    <span class="snippet-author">@{{snippet.author}}</span>
+                    <span class="snippet-version">({{snippet.version}})</span>
+                  </div>
+                  <div v-if="snippet.suggested_by">
+                    <span class="snippet-suggested-by">Suggested by {{snippet.suggested_by}}</span>
+                  </div>
                 </div>
                 <div>
                   <el-button-group>

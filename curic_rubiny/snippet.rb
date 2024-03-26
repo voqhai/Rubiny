@@ -41,6 +41,10 @@ module CURIC::Rubiny
 
       self.tooltip = @info['description']
       self.status_bar_text = @info['description']
+
+      validate = snippet_validation_proc
+      self.set_validation_proc(&validate) if validate
+      self.extension = CURIC::Rubiny::PLUGIN_EX if self.respond_to?(:extension)
     end
 
     def installed?
@@ -74,6 +78,10 @@ module CURIC::Rubiny
 
     def use_context_menu?
       false
+    end
+
+    def snippet_validation_proc
+      nil
     end
   end
 end
