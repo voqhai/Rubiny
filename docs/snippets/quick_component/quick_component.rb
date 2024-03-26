@@ -17,11 +17,10 @@ module CURIC::Rubiny
       model.start_operation('Quick Component', true)
       # create group
       group = model.active_entities.add_group(selection)
-      group.name = defalt_name
 
       # create component
       component = group.to_component
-      # component.definition.name = defalt_name
+      component.definition.name = defalt_name
 
       model.commit_operation
 
