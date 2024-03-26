@@ -155,6 +155,10 @@ module CURIC::Rubiny
     # Get value of snippet to set on UI
     def get_value(snippet_data)
       p "Get Value: #{snippet_data['id']}"
+      snippet = get_snippet(snippet_data)
+      return unless snippet
+      value = snippet.get_value
+      @dialog.execute_script("app.setSnippetValue('#{snippet.id}', '#{value}')")
     end
 
     def loaded(snippet)
