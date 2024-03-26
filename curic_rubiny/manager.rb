@@ -54,15 +54,16 @@ module CURIC::Rubiny
       if CURIC::Rubiny.debug?
         ruby_url = File.join(File.dirname(PATH), 'docs', 'all_ruby_files.zip')
       else
-        ruby_url = 'https://voqhai.github.io/Rubiny/all_ruby_files.zip'
+        ruby_url = "#{CURIC::Rubiny::HOST}/all_ruby_files.zip"
       end
 
-      ruby_url = 'https://voqhai.github.io/Rubiny/all_ruby_files.zip'
+      ruby_url = "#{CURIC::Rubiny::HOST}/all_ruby_files.zip"
       @dialog.execute_script("loadAndProcessZip('#{ruby_url}')")
     end
 
-    def loaded_database(_snippets)
+    def loaded_database(snippets)
       # All snippets on server is loaded
+      CURIC::Rubiny::CheckForUpdate.save_last_snippets(snippets)
       sync_local_snippets
     end
 
@@ -112,6 +113,8 @@ module CURIC::Rubiny
 
       snippet.installed = status
 
+      @dialog.execute_script("app.uninstalledSnippet('#{snippet.id}', #{status})")
+
       sync_local_snippets
     end
 
@@ -120,12 +123,8 @@ module CURIC::Rubiny
       snippet = get_snippet(snippet_data)
       if snippet
         status = CURIC::Rubiny.update(snippet, snippet_data)
-        if status
-          UI.messagebox("Snippet updated: #{snippet.name}")
-          sync_local_snippets
-        else
-          UI.messagebox("Failed to update snippet: #{snippet.name}")
-        end
+        sync_local_snippets
+        @dialog.execute_script("app.updatedSnippet('#{snippet.id}', #{status})")
       else
         UI.messagebox("Snippet not found")
       end

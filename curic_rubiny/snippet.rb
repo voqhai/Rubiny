@@ -5,7 +5,10 @@ module CURIC::Rubiny
     end
 
     def self.const(id)
-      CURIC::Rubiny.const_get(class_name(id))
+      name = class_name(id)
+      return CURIC::Rubiny.const_get(name) if CURIC::Rubiny.const_defined?(name)
+
+      nil
     end
 
     attr_accessor :info, :id, :name

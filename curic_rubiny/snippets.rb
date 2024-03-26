@@ -57,7 +57,7 @@ module CURIC::Rubiny
 
       eval(info['ruby_content'])
 
-      const = Snippet.const(id)
+      const = Snippet.const(info['id'])
       return unless const
 
       snippet = const.new(info)

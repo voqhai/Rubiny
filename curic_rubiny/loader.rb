@@ -12,9 +12,12 @@ module CURIC
     PATH_R = File.join(PATH, 'Resources').freeze
     ICON_EX = Sketchup.platform == :platform_osx ? 'pdf' : 'svg'
 
+    HOST = 'https://voqhai.github.io/Rubiny/'
+
     Sketchup.require "#{PATH}/snippet"
     Sketchup.require "#{PATH}/manager"
     Sketchup.require "#{PATH}/snippets"
+    Sketchup.require "#{PATH}/update"
 
     def self.read_json(file)
       JSON.parse(File.read(file))
@@ -147,6 +150,27 @@ module CURIC
       load_local_snippets
     end
 
+    def self.check_for_update
+      CheckForUpdate.check do |new_snippets|
+        next unless new_snippets && new_snippets.size > 0
+
+        names = new_snippets.map { |info| info['name'] }.join("\n")
+        mes = "#{PLUGIN_NAME}::New snippets available!\n#{names}"
+
+        notify = UI::Notification.new(PLUGIN_EX, mes)
+        notify.icon_name = File.join(PATH_R, "icon.png")
+        notify.on_accept('Show') do
+          Manager.show
+        end
+
+        notify.on_dismiss('Close') do
+          # Do nothing
+        end
+
+        notify.show
+      end
+    end
+
     unless file_loaded?(__FILE__)
       @extension_menu = UI.menu('Extensions').add_submenu(PLUGIN_ID)
       @snippets_menu = @extension_menu.add_submenu('Snippets')
@@ -169,6 +193,11 @@ module CURIC
       toolbar.add_item(cmd)
 
       @extension_menu.add_item(cmd)
+
+
+      UI.start_timer(10, false) do
+        check_for_update
+      end
 
       UI.start_timer(0.1, false) { toolbar.restore }
 

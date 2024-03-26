@@ -1,11 +1,11 @@
 {
   "name": "Snippet One",
   "description": "This is the first snippet.",
-  "id": "find_face",
   "additional_files": [
 
   ],
   "author": "Curic",
+  "id": "find_face",
   "image": null,
   "installed": false,
   "loaded": false,

@@ -103,8 +103,36 @@ function createVueApp() {
       uninstall(snippet){
         this.call('uninstall', snippet);
       },
+      uninstalledSnippet(id, stauts) {
+        if (stauts) {
+          this.$message({
+            message: 'Uninstall successfully! Maybe you need to restart SketchUp to apply changes.',
+            type: 'success'
+          });
+        }
+        else {
+          this.$message({
+            message: 'Uninstall failed!',
+            type: 'error'
+          });
+        }
+      },
       update(snippet){
         this.call('update', snippet);
+      },
+      updatedSnippet(id, stauts) {
+        if (stauts) {
+          this.$message({
+            message: 'Update successfully! Maybe you need to restart SketchUp to apply changes.',
+            type: 'success'
+          });
+        }
+        else {
+          this.$message({
+            message: 'Update failed!',
+            type: 'error'
+          });
+        }
       },
       onResize() {
         this.windowWidth = window.innerWidth;

@@ -37,7 +37,9 @@ task :generate_json do
       "description" => "Description for #{id}",
       "ruby_file" => ruby_file ? ruby_file.gsub(/^docs\//, '') : nil,
       "image" => image,
-      "additional_files" => additional_files
+      "additional_files" => additional_files,
+      "ceated_at" => File.ctime(json_file).to_s,
+      "updated_at" => File.mtime(json_file).to_s
     }
 
     snippets_info["snippets"] << default_info.merge(info)

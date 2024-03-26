@@ -9,6 +9,8 @@
       "additional_files": [
 
       ],
+      "ceated_at": "2024-03-25 13:53:15 +0700",
+      "updated_at": "2024-03-25 13:53:15 +0700",
       "version": "0.0.1",
       "author": "Curic"
     },
@@ -21,6 +23,8 @@
       "additional_files": [
 
       ],
+      "ceated_at": "2024-03-25 22:24:36 +0700",
+      "updated_at": "2024-03-25 22:24:36 +0700",
       "version": "0.0.2",
       "author": "Curic"
     },
@@ -33,6 +37,8 @@
       "additional_files": [
 
       ],
+      "ceated_at": "2024-03-25 13:53:20 +0700",
+      "updated_at": "2024-03-25 13:53:20 +0700",
       "component": "el-slider",
       "props": {
         "min": 0,
