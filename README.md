@@ -1,3 +1,5 @@
+![Thumbnail](https://voqhai.github.io/Rubiny/docs/images/logo.png)
+
 # Rubiny
 
 **Rubiny**: A collection of tiny Ruby scripts.
