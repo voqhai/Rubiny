@@ -2,7 +2,7 @@
   "id": "quick_component",
   "name": "Quick Component",
   "description": "Make Component without any configuration",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Curic",
   "use_settings": true,
   "suggested_by": "Thamin Hiệp - VBO"
