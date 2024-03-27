@@ -1,6 +1,20 @@
 {
   "snippets": [
     {
+      "id": "dialog_center_screen",
+      "name": "Dialog Center Screen",
+      "description": "Move dialog to center screen",
+      "ruby_file": "snippets/dialog_center_screen/dialog_center_screen.rb",
+      "image": null,
+      "additional_files": [
+
+      ],
+      "ceated_at": "2024-03-27 17:45:02 +0700",
+      "updated_at": "2024-03-27 17:45:02 +0700",
+      "version": "1.0.0",
+      "author": "Curic"
+    },
+    {
       "id": "find_face",
       "name": "Snippet One",
       "description": "This is the first snippet.",
