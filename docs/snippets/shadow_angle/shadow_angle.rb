@@ -16,5 +16,14 @@ module CURIC::Rubiny
     def get_value
       Sketchup.active_model.shadow_info['NorthAngle']
     end
+
+    def hover_changed(hover)
+      p "Hover changed: #{hover}"
+      if hover
+        p "show preview shadow angle"
+      else
+        p "hide preview shadow angle"
+      end
+    end
   end
 end

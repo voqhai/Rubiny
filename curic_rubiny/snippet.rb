@@ -87,5 +87,8 @@ module CURIC::Rubiny
       nil
     end
 
+    def hover_changed(value)
+      nil
+    end
   end
 end

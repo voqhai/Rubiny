@@ -12,6 +12,7 @@ function createVueApp() {
         { label: 'Created', value: 'created_at' },
         { label: 'Updated', value: 'updated_at' },
       ],
+      currentHover: null,
       windowWidth: window.innerWidth,
       windowHeight: window.innerHeight,
     },
@@ -30,6 +31,9 @@ function createVueApp() {
         });
 
         this.$forceUpdate();
+      },
+      currentHover: function (newVal, oldVal) {
+        sketchup.call('hover', newVal, oldVal);
       }
     },
     methods: {
@@ -174,6 +178,12 @@ function createVueApp() {
           return 0; // không có sự thay đổi về thứ tự
         });
       },
+      hoverStart(snippet) {
+        this.currentHover = snippet;
+      },
+      hoverEnd() {
+        this.currentHover = null;
+      }
     },
     computed: {
       filteredSnippets() {

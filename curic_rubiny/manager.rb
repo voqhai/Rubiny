@@ -172,6 +172,18 @@ module CURIC::Rubiny
       end
     end
 
+    def hover(current, old)
+      if current
+        current_snippet = get_snippet(current)
+        current_snippet.hover_changed(true) if current_snippet
+      end
+
+      if old
+        old_snippet = get_snippet(old)
+        old_snippet.hover_changed(false) if old_snippet
+      end
+    end
+
     def loaded(snippet)
       @dialog.execute_script("app.loadedSnippet('#{snippet.id}')")
     end

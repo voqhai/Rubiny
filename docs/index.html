@@ -29,68 +29,70 @@
         </div>
         <el-divider></el-divider>
         <div class="snippets" :style="{height: windowHeight - 170 + 'px'}">
-          <el-card v-for="snippet in filteredSnippets" :key="snippet.id" :body-style="{padding: '10px'}">
-            <div slot="header" class="clearfix">
-              <div class="bar">
-                <div>
-                  <h4 class="snippet-name">{{ snippet.name }}</h4>
-                  <div>
-                    <span class="snippet-author">@{{snippet.author}}</span>
-                    <span class="snippet-version">({{snippet.version}})</span>
-                  </div>
-                  <div v-if="snippet.suggested_by">
-                    <span class="snippet-suggested-by">Suggested by {{snippet.suggested_by}}</span>
+          <template v-for="snippet in filteredSnippets">
+            <div class="snippet-wrap" :key="snippet.id" @mouseenter="hoverStart(snippet)" @mouseleave="hoverEnd">
+              <el-card :body-style="{padding: '10px'}">
+                <div slot="header" class="clearfix">
+                  <div class="bar" >
+                    <div>
+                      <h4 class="snippet-name">{{ snippet.name }}</h4>
+                      <div>
+                        <span class="snippet-author">@{{snippet.author}}</span>
+                        <span class="snippet-version">({{snippet.version}})</span>
+                      </div>
+                      <div v-if="snippet.suggested_by">
+                        <span class="snippet-suggested-by">Suggested by {{snippet.suggested_by}}</span>
+                      </div>
+                    </div>
+                    <div>
+                      <!-- <el-button-group>
+                        <el-button size="mini" type="primary" @click="play(snippet)" title="Play snippet">PLay</el-button>
+                        <template v-if="snippet.installed">
+                          <el-button size="mini" type="danger" @click="uninstall(snippet)" title="Uninstall">Uninstall</el-button>
+                        </template>
+                        <template v-else>
+                          <el-button size="mini" type="success" @click="install(snippet)" title="Install">Install</el-button>
+                        </template>
+                        <template v-if="hasNewVersion(snippet)">
+                          <el-button size="mini" type="success" @click="update(snippet)" title="Update">Update</el-button>
+                        </template>
+                      </el-button-group> -->
+                      <div class="bar button-icon-group gap2">
+                        <span class="icon-button" @click="play(snippet)" title="Play snippet">  <i class="play bx bx-play-circle bx-border bx-sm"></i> </span>
+                        <template v-if="snippet.installed">
+                          <span class="icon-button" @click="uninstall(snippet)" title="Uninstall">  <i class="uninstall bx bxs-trash bx-border bx-sm"></i> </span>
+                        </template>
+                        <template v-else>
+                          <span class="icon-button" @click="install(snippet)" title="Install">  <i class="install bx bx-down-arrow-circle bx-border bx-sm"></i> </span>
+                        </template>
+                        <template v-if="hasNewVersion(snippet)">
+                          <span class="icon-button" @click="update(snippet)" title="Update">  <i class="update bx bx-up-arrow-circle bx-border bx-sm"></i> </span>
+                        </template>
+                        <template v-if="snippet.use_settings">
+                          <span class="icon-button" @click="showSettings(snippet)" title="Settings">  <i class="settings bx bx-cog bx-border bx-sm"></i> </span>
+                        </template>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <!-- <el-button-group>
-                    <el-button size="mini" type="primary" @click="play(snippet)" title="Play snippet">PLay</el-button>
-                    <template v-if="snippet.installed">
-                      <el-button size="mini" type="danger" @click="uninstall(snippet)" title="Uninstall">Uninstall</el-button>
-                    </template>
-                    <template v-else>
-                      <el-button size="mini" type="success" @click="install(snippet)" title="Install">Install</el-button>
-                    </template>
-                    <template v-if="hasNewVersion(snippet)">
-                      <el-button size="mini" type="success" @click="update(snippet)" title="Update">Update</el-button>
-                    </template>
-                  </el-button-group> -->
-
-                  <div class="bar button-icon-group gap2">
-                    <span class="icon-button" @click="play(snippet)" title="Play snippet">  <i class="play bx bx-play-circle bx-border bx-sm"></i> </span>
-                    <template v-if="snippet.installed">
-                      <span class="icon-button" @click="uninstall(snippet)" title="Uninstall">  <i class="uninstall bx bxs-trash bx-border bx-sm"></i> </span>
-                    </template>
-                    <template v-else>
-                      <span class="icon-button" @click="install(snippet)" title="Install">  <i class="install bx bx-down-arrow-circle bx-border bx-sm"></i> </span>
-                    </template>
-                    <template v-if="hasNewVersion(snippet)">
-                      <span class="icon-button" @click="update(snippet)" title="Update">  <i class="update bx bx-up-arrow-circle bx-border bx-sm"></i> </span>
-                    </template>
-
-                    <template v-if="snippet.use_settings">
-                      <span class="icon-button" @click="showSettings(snippet)" title="Settings">  <i class="settings bx bx-cog bx-border bx-sm"></i> </span>
-                    </template>
+                <div class="snippet-content">
+                  <div class="bar left">
+                    <div class="snippet-thumbnail">
+                      <img :src="'snippets/' + snippet.id + '/asset/thumbnail.png'" alt="Snippet Thumbnail">
+                    </div>
+                    <div>
+                      <div><span class="snippet-description">{{ snippet.description }}</span></div>
+                      <div>
+                        <template v-if="snippet.component">
+                          <component v-model="snippet.value" @change="playValue(snippet)" :is="snippet.component" v-bind="snippet.props"></component>
+                        </template>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </el-card>
             </div>
-            <div class="snippet-content">
-              <div class="bar left">
-                <div class="snippet-thumbnail">
-                  <img :src="'snippets/' + snippet.id + '/asset/thumbnail.png'" alt="Snippet Thumbnail">
-                </div>
-                <div>
-                  <div><span class="snippet-description">{{ snippet.description }}</span></div>
-                  <div>
-                    <template v-if="snippet.component">
-                      <component v-model="snippet.value" @change="playValue(snippet)" :is="snippet.component" v-bind="snippet.props"></component>
-                    </template>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </el-card>
+          </template>
         </div>
       </template>
     </div>
