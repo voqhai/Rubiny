@@ -11,7 +11,7 @@ module CURIC::Rubiny
       selection = model.selection
 
       # remove locked entities
-      selection = selection.reject { |e| e.locked? }
+      selection = selection.reject { |e| e.respond_to?(:locked?) && e.locked? }
       return UI.beep if selection.empty?
 
       model.start_operation('Quick Component', true)
@@ -27,6 +27,9 @@ module CURIC::Rubiny
       # clear selection
       model.selection.clear
       model.selection.add(component)
+    rescue => e
+      model.abort_operation
+      raise e
     end
 
     def use_context_menu?

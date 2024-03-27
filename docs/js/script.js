@@ -14,6 +14,11 @@ function createVueApp() {
         { label: 'Updated', value: 'updated_at' },
       ],
       currentHover: null,
+      error: {
+        message: '',
+        backtrace: [],
+      },
+      dialogException: false,
       windowWidth: window.innerWidth,
       windowHeight: window.innerHeight,
     },
@@ -198,7 +203,14 @@ function createVueApp() {
         } else {
           this.layout = 'grid';
         }
-      }
+      },
+      handleException(error) {
+        this.error = error;
+        this.dialogException = true;
+      },
+      createIssue() {
+        sketchup.call('create_issue', this.error);
+      },
     },
     computed: {
       filteredSnippets() {

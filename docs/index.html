@@ -89,6 +89,27 @@
             </div>
           </template>
         </div>
+
+        <!-- Error -->
+        <el-dialog
+          title="Oops! An error occurred..."
+          :visible.sync="dialogException"
+          width="80%">
+          <el-card>
+            <template slot="header">
+              <div class="bar gap10">
+                <h4 class="error-message">{{error.message}}</h4>
+                <span class="icon-button" @click="createIssue" title="Create Issue">  <i class="bx bx-message-square-add bx-border bx-sm"></i> </span>
+              </div>
+            </template>
+
+            <div class="error-backtrace">
+              <div v-for="t in error.backtrace">
+                <div class="error-backtrace-item">{{ t }}</div>
+              </div>
+            </div>
+          </el-card>
+        </el-dialog>
       </template>
     </div>
 

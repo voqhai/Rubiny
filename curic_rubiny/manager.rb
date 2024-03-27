@@ -50,13 +50,6 @@ module CURIC::Rubiny
 
     def ready
       puts 'Rubiny is ready' if PLUGIN.debug?
-
-      if CURIC::Rubiny.debug?
-        ruby_url = File.join(File.dirname(PATH), 'docs', 'all_ruby_files.zip')
-      else
-        ruby_url = "#{CURIC::Rubiny::HOST}/all_ruby_files.zip"
-      end
-
       ruby_url = "#{CURIC::Rubiny::HOST}/all_ruby_files.zip"
       @dialog.execute_script("loadAndProcessZip('#{ruby_url}')")
     end
@@ -137,6 +130,13 @@ module CURIC::Rubiny
       else
         UI.messagebox("Snippet not found!")
       end
+    rescue => e
+      d = {
+        id: snippet.id,
+        message: e.message,
+        backtrace:  e.backtrace.to_a
+      }
+      @dialog.execute_script("app.handleException(#{d.to_json})")
     end
 
     def play_value(snippet_data)
@@ -150,6 +150,13 @@ module CURIC::Rubiny
         # Missing Ruby Snippet Object
         UI.messagebox("Snippet not found!")
       end
+    rescue => e
+      d = {
+        id: snippet.id,
+        message: e.message,
+        backtrace:  e.backtrace.to_a
+      }
+      @dialog.execute_script("app.handleException(#{d.to_json})")
     end
 
     # Get value of snippet to set on UI
@@ -182,6 +189,17 @@ module CURIC::Rubiny
         old_snippet = get_snippet(old)
         old_snippet.hover_changed(false) if old_snippet
       end
+    end
+
+    def create_issue(error)
+      title = "Error: ##{error['id']} - #{error['message']}"
+      body = "```ruby\n#{error['backtrace'].join("\n")}\n```"
+
+      encoded_title = URI.encode_www_form_component(title)
+      encoded_body = URI.encode_www_form_component(body)
+
+      url = "https://github.com/voqhai/Rubiny/issues/new?title=#{encoded_title}&body=#{encoded_body}"
+      UI.openURL(url)
     end
 
     def loaded(snippet)

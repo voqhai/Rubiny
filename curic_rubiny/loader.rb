@@ -15,6 +15,8 @@ module CURIC
 
     HOST = 'https://voqhai.github.io/Rubiny/'
 
+    require 'uri'
+    require 'json'
     Sketchup.require "#{PATH}/snippet"
     Sketchup.require "#{PATH}/manager"
     Sketchup.require "#{PATH}/snippets"

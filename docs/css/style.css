@@ -121,6 +121,18 @@ p {
   font-style: italic;  
 }
 
+.error-message {
+  color: red;
+}
+.error-backtrace {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  overflow: auto;
+  max-height: 200px;
+}
+
 .bx-sm {
   font-size: 1.25rem!important;
 }
