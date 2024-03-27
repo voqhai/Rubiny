@@ -60,6 +60,9 @@ module CURIC::Rubiny
       const = Snippet.const(info['id'])
       return unless const
 
+      p "Create snippet: #{info['name']}"
+      p const
+      p const.to_s
       snippet = const.new(info)
 
       add(snippet)

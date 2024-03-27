@@ -131,6 +131,7 @@ module CURIC::Rubiny
     end
 
     def play(snippet_data)
+      snippet = get_snippet(snippet_data)
       if snippet
         snippet.play
       else

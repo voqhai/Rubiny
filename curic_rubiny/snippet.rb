@@ -20,6 +20,8 @@ module CURIC::Rubiny
     }
 
     def initialize(props)
+      p 'Snippet initialize'
+      ap props
       raise 'arg must be a Hash' unless props.is_a?(Hash)
 
       props = DEFAULT_PROPERTIES.merge(props)
@@ -32,9 +34,8 @@ module CURIC::Rubiny
       @evaluated = false
       @loaded = false
 
-      super(@name) do
-        play
-      end
+      block = proc { play }
+      super(@name, &block)
 
       self.small_icon = CURIC::Rubiny::ICON
       self.large_icon = CURIC::Rubiny::ICON
