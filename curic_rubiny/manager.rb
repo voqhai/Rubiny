@@ -33,8 +33,8 @@ module CURIC::Rubiny
 
     def dialog_options
       {
-        dialog_title: 'Rubiny',
-        preferences_key: 'com.sketchup.plugins.rubiny',
+        dialog_title: PLUGIN_ID,
+        preferences_key: "com.sketchup.plugins.#{PLUGIN_ID}",
         resizable: true,
         width: 800,
         height: 600,
@@ -154,12 +154,12 @@ module CURIC::Rubiny
 
     # Get value of snippet to set on UI
     def get_value(snippet_data)
-      p "Get Value: #{snippet_data['id']}" #if PLUGIN.debug?
+      p "Get Value: #{snippet_data['id']}" if PLUGIN.debug?
       snippet = get_snippet(snippet_data)
       return unless snippet
 
       value = snippet.get_value
-      p "Value: #{value}" #if PLUGIN.debug?
+      p "Value: #{value}" if PLUGIN.debug?
       @dialog.execute_script("app.setSnippetValue('#{snippet.id}', #{value})")
     end
 

@@ -13,6 +13,9 @@ module CURIC
 
     unless file_loaded?(__FILE__)
       ex = SketchupExtension.new(PLUGIN_NAME, "#{PATH}/loader")
+      ex.description = 'Rubiny is a collection of Ruby snippets for SketchUp.'
+      ex.version     = '0.0.1'
+      ex.creator     = 'Curic'
       Sketchup.register_extension(ex, true)
       PLUGIN_EX = ex
     end

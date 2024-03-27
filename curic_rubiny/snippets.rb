@@ -55,9 +55,6 @@ module CURIC::Rubiny
       return snippet if snippet
       return unless info['ruby_file'] && info['ruby_content']
 
-      p 'Create snippet'
-      puts info['ruby_content']
-
       eval(info['ruby_content'])
 
       const = Snippet.const(info['id'])
