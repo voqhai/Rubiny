@@ -81,3 +81,23 @@ task :build do
   sh "git commit -m 'Build snippets'"
   sh 'git push origin main'
 end
+
+# desc 'Build Sketchup extension'
+# task :release do
+#   version = `git describe --tags`.strip
+#   cmd = %w[git archive
+#            --format zip
+#            HEAD curic_rubiny.rb curic_rubiny]
+#   cmd.insert(2, '--output', "releases/curic_rubiny-#{version}.rbz")
+#   sh(*cmd)
+# end
+
+desc 'Build Sketchup extension'
+task :release do
+  version = `git describe --tags`.strip
+  archive_name = "releases/curic_rubiny-#{version}.rbz"
+  sh "mkdir -p releases" # Tạo thư mục releases nếu nó không tồn tại
+  sh "git ls-files | grep -v '^curic_rubiny/local/' | grep -v '^curic_rubiny/docs/' | zip #{archive_name} -@"
+
+  puts "Archive created at #{archive_name}"
+end
