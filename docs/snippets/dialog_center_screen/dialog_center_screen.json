@@ -1,7 +1,7 @@
 {
   "id": "dialog_center_screen",
   "name": "Dialog Center Screen",
-  "description": "Move dialog to center screen",
+  "description": "Move ruby dialogs to center screen",
   "version": "1.0.0",
   "author": "Curic"
 }
