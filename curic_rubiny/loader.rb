@@ -37,7 +37,7 @@ module CURIC
 
       snippet.installed = true
 
-      @snippets_menu.add_item(snippet)
+      @snippets_menu.add_item(snippet.command)
       @commnads[snippet.id] = snippet
     end
 

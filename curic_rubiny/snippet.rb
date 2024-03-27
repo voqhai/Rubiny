@@ -1,5 +1,5 @@
 module CURIC::Rubiny
-  class Snippet < UI::Command
+  class Snippet # < UI::Command
     def self.class_name(id)
       id.split('_').map(&:capitalize).join
     end
@@ -13,6 +13,7 @@ module CURIC::Rubiny
 
     attr_accessor :info, :id, :name
     attr_writer :installed
+    attr_accessor :command
 
     DEFAULT_PROPERTIES = {
       'name' => 'Snippet',
@@ -20,8 +21,6 @@ module CURIC::Rubiny
     }
 
     def initialize(props)
-      p 'Snippet initialize'
-      ap props
       raise 'arg must be a Hash' unless props.is_a?(Hash)
 
       props = DEFAULT_PROPERTIES.merge(props)
@@ -34,17 +33,18 @@ module CURIC::Rubiny
       @evaluated = false
       @loaded = false
 
-      block = proc { play }
-      super(@name, &block)
+      @command = UI::Command.new(@name) do
+        play
+      end
 
-      self.small_icon = CURIC::Rubiny::ICON
-      self.large_icon = CURIC::Rubiny::ICON
+      @command.small_icon = CURIC::Rubiny::ICON
+      @command.large_icon = CURIC::Rubiny::ICON
 
-      self.tooltip = @info['description']
-      self.status_bar_text = @info['description']
+      @command.tooltip = @info['description']
+      @command.status_bar_text = @info['description']
 
       validate = snippet_validation_proc
-      self.set_validation_proc(&validate) if validate
+      @command.set_validation_proc(&validate) if validate
     end
 
     def installed?
@@ -77,7 +77,7 @@ module CURIC::Rubiny
     def context_menu(context_menu)
       return unless use_context_menu?
 
-      context_menu.add_item(self)
+      context_menu.add_item(@command)
     end
 
     def use_context_menu?

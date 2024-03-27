@@ -1,13 +1,11 @@
 module CURIC::Rubiny
   class ShadowAngle < Snippet
     def initialize(*args)
-      p 'ShadowAngle initialize'
-      ap args
       super(*args)
     end
 
     def play
-      p 'Run Shadow Angle'
+      UI.messagebox("Play #{info['name']}")
     end
 
     def play_value(value)
@@ -20,6 +18,8 @@ module CURIC::Rubiny
     end
 
     def hover_changed(hover)
+      return unless PLUGIN.debug?
+
       p "Hover changed: #{hover}"
       if hover
         p "show preview shadow angle"

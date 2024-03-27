@@ -12,7 +12,7 @@ module CURIC::Rubiny
 
       # remove locked entities
       selection = selection.reject { |e| e.locked? }
-      return if selection.empty?
+      return UI.beep if selection.empty?
 
       model.start_operation('Quick Component', true)
       # create group
