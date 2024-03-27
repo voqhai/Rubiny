@@ -11,6 +11,7 @@ module CURIC
     LOCAL_DIR = File.join(PATH, 'local').freeze
     PATH_R = File.join(PATH, 'Resources').freeze
     ICON_EX = Sketchup.platform == :platform_osx ? 'pdf' : 'svg'
+    ICON = File.join(PATH_R, "icon.png")
 
     HOST = 'https://voqhai.github.io/Rubiny/'
 
@@ -159,7 +160,7 @@ module CURIC
         mes = "#{PLUGIN_NAME}::New snippets available!\n#{names}"
 
         notify = UI::Notification.new(PLUGIN_EX, mes)
-        notify.icon_name = File.join(PATH_R, "icon.png")
+        notify.icon_name = ICON
         notify.on_accept('Show') do
           Manager.show
         end

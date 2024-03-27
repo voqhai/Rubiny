@@ -78,6 +78,6 @@ task :build do
 
   # Upload to github
   sh 'git add .'
-  sh "git commit -m 'Upload source code to GitHub'"
+  sh "git commit -m 'Build snippets'"
   sh 'git push origin main'
 end
