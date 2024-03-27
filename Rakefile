@@ -1,16 +1,5 @@
 task default: [:release]
 
-desc 'Build Sketchup extension'
-task :release do
-  # Giả sử bạn đang ở trong thư mục gốc của repository Rubiny
-  # Đường dẫn tới thư mục ruby cần được chỉnh lại cho đúng
-  cmd = %w[git archive
-           --format zip
-           --output docs/ruby/rubiny.zip
-           HEAD:snippets] # Chỉnh lại đường dẫn này nếu cần
-  sh(*cmd)
-end
-
 require 'json'
 require 'rake/packagetask'
 
@@ -81,23 +70,36 @@ task :build do
   sh "git commit -m 'Build snippets'"
   sh 'git push origin main'
 end
-
-# desc 'Build Sketchup extension'
-# task :release do
-#   version = `git describe --tags`.strip
-#   cmd = %w[git archive
-#            --format zip
-#            HEAD curic_rubiny.rb curic_rubiny]
-#   cmd.insert(2, '--output', "releases/curic_rubiny-#{version}.rbz")
-#   sh(*cmd)
-# end
-
+require 'zip'
 desc 'Build Sketchup extension'
 task :release do
   version = `git describe --tags`.strip
-  archive_name = "releases/curic_rubiny-#{version}.rbz"
-  sh "mkdir -p releases" # Tạo thư mục releases nếu nó không tồn tại
-  sh "git ls-files | grep -v '^curic_rubiny/local/' | grep -v '^curic_rubiny/docs/' | zip #{archive_name} -@"
 
-  puts "Archive created at #{archive_name}"
+  # Thiết lập tên file và đường dẫn của file nén cuối cùng
+  rb_file = 'curic_rubiny.rb'
+  plugin_name = 'curic_rubiny'
+  rbz_filename = "releases/#{plugin_name}-#{version}.rbz"
+
+  # Tạo thư mục releases nếu nó chưa tồn tại
+  FileUtils.mkdir_p('releases') unless Dir.exist?('releases')
+
+  # Xóa file rbz cũ nếu đã tồn tại
+  FileUtils.rm_f(rbz_filename) if File.exist?(rbz_filename)
+
+  # Tạo file nén mới
+  Zip::File.open(rbz_filename, Zip::File::CREATE) do |zipfile|
+    # Thêm file rb vào root của file nén
+    zipfile.add(File.basename(rb_file), rb_file)
+
+    # Duyệt qua tất cả file và thư mục con bên trong plugin_name
+    Dir.glob("#{plugin_name}/**/{*,.*}").each do |file|
+      next unless File.file?(file) # Bỏ qua nếu là thư mục
+      next if file.include?("#{plugin_name}/local/") || file.include?("#{plugin_name}/docs/") # Bỏ qua các thư mục không mong muốn
+
+      # Thêm file vào file nén, bảo toàn cấu trúc thư mục
+      zipfile.add(file, file)
+    end
+  end
+
+  puts "Archive created at #{rbz_filename}"
 end
