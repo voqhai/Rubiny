@@ -78,6 +78,10 @@ p {
   color: #5a5a5a;
 }
 
+.select-sort {
+  min-width: 140px;
+}
+
 .snippets {
   overflow: auto;
 }

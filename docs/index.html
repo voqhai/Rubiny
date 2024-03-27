@@ -26,7 +26,7 @@
         <div class="bar gap10">
           <el-input size="small" v-model="search" placeholder="Search snippets" class="search"></el-input>
           <!-- sort -->
-          <el-select size="small" v-model="sort">
+          <el-select size="small" v-model="sort" class="select-sort">
             <el-option v-for="s in sortTypes" :label="'Sort by ' + s.label" :value="s.value" :key="s.value"></el-option>
           </el-select>
         </div>

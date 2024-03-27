@@ -7,6 +7,7 @@ function createVueApp() {
       snippets: [],
       installed: [],
       sort: 'name',
+      layout: 'list',
       sortTypes: [
         { label: 'Name', value: 'name' },
         { label: 'Created', value: 'created_at' },
