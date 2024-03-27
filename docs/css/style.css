@@ -1,5 +1,9 @@
 body {
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
+  
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+
   margin: 10px;
   /* text-align: center; */
 }
@@ -63,6 +67,17 @@ p {
   gap: 2px;
 }
 
+.rubiny-title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #333;
+}
+
+.rubiny-description {
+  font-size: 14px;
+  color: #5a5a5a;
+}
+
 .snippets {
   overflow: auto;
 }
@@ -79,6 +94,12 @@ p {
   object-fit: cover;
 }
 
+.snippet-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
 .snippet-description {
   font-size: 14px;
   color: #5a5a5a;
@@ -86,6 +107,7 @@ p {
 
 .snippet-version, .snippet-author, .snippet-suggested-by {
   font-size: 8pt;
+  font-weight: 300;
   color: #6d6d6d;
   font-style: italic;  
 }
