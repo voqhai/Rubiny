@@ -1,4 +1,4 @@
-![Thumbnail](https://voqhai.github.io/Rubiny/docs/images/logo.png)
+![Thumbnail](https://voqhai.github.io/Rubiny/images/logo.png)
 
 # Rubiny
 
