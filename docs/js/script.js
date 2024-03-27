@@ -19,6 +19,7 @@ function createVueApp() {
     },
     created() {
       this.fetchSnippets();
+      this.onResize();
     },
     watch: {
       installed: function (newVal, oldVal) {
@@ -158,6 +159,12 @@ function createVueApp() {
       onResize() {
         this.windowWidth = window.innerWidth;
         this.windowHeight = window.innerHeight;
+        if (this.windowWidth < 768) {
+          this.layout = 'list';
+        }
+        else {
+          this.layout = 'grid';
+        }
       },
       sortSnippets(snippets, propName) {
         return snippets.sort((a, b) => {
@@ -184,6 +191,13 @@ function createVueApp() {
       },
       hoverEnd() {
         this.currentHover = null;
+      },
+      toggleLayout() {
+        if (this.layout === 'grid') {
+          this.layout = 'list';
+        } else {
+          this.layout = 'grid';
+        }
       }
     },
     computed: {
@@ -193,6 +207,20 @@ function createVueApp() {
           const search = this.search.toLowerCase();
           return snippet.name.toLowerCase().includes(search) || snippet.description.toLowerCase().includes(search);
         });
+      },
+      layoutSnippets() {
+        if (this.layout === 'grid') {
+          return {
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+            gridGap: '0.5rem',
+          };
+        } else {
+          return {
+            display: 'block',
+            height: this.windowHeight - 170 + 'px'
+          };
+        }
       }
     },
     mounted() {

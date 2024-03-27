@@ -86,6 +86,11 @@ p {
   overflow: auto;
 }
 
+.snippet-wrap .el-card {
+  /* height: 100%; */
+  min-height: 160px;
+}
+
 .snippet-thumbnail {
   width: 64px;
   height: 64px;

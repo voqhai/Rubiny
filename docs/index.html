@@ -27,13 +27,17 @@
           <el-input size="small" v-model="search" placeholder="Search snippets" class="search"></el-input>
           <!-- sort -->
           <el-select size="small" v-model="sort" class="select-sort">
-            <el-option v-for="s in sortTypes" :label="'Sort by ' + s.label" :value="s.value" :key="s.value"></el-option>
+            <el-option v-for="s in sortTypes" :label="'Sort by ' + s.label" :value="s.value" :key="s.value">
+              <span><i class="bx bx-down-arrow-alt bx-sm"></i></span>
+              <span>{{ s.label }}</span>
+            </el-option>
           </el-select>
         </div>
         <el-divider></el-divider>
-        <div class="snippets" :style="{height: windowHeight - 170 + 'px'}">
+        <div class="snippets" :style="layoutSnippets">
           <template v-for="snippet in filteredSnippets">
-            <div class="snippet-wrap" :key="snippet.id" @mouseenter="hoverStart(snippet)" @mouseleave="hoverEnd">
+            <div class="snippet-wrap" :key="snippet.id" @mouseenter="hoverStart(snippet)" @mouseleave="hoverEnd"
+            >
               <el-card :body-style="{padding: '10px'}">
                 <div slot="header" class="clearfix">
                   <div class="bar" >
