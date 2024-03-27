@@ -20,7 +20,7 @@ module CURIC::Rubiny
 
       # create component
       component = group.to_component
-      component.definition.name = defalt_name
+      component.definition.name = default_name
 
       model.commit_operation
 
@@ -36,12 +36,12 @@ module CURIC::Rubiny
       true
     end
 
-    def defalt_name
+    def default_name
       Sketchup.read_default(@settings_section, 'default_name', 'Object')
     end
 
     def show_settings
-      r = UI.inputbox(['Prefix'], [defalt_name], "#{@info['name']} Settings")
+      r = UI.inputbox(['Prefix'], [default_name], "#{@info['name']} Settings")
       return unless r
 
       v = r[0]
