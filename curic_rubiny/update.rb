@@ -42,7 +42,12 @@ module CURIC::Rubiny
 
     def save_last_snippets(snippets)
       data = snippets.map { |info| info['id'] }
-      File.open(LOCAL_DATA, 'w') { |f| f.write(JSON.pretty_generate(data)) }
+
+      file = LOCAL_DATA
+      dir = File.dirname(file)
+      FileUtils.mkdir_p(dir) unless File.directory?(dir)
+
+      File.open(file, 'w') { |f| f.write(JSON.pretty_generate(data)) }
     end
   end
 end
