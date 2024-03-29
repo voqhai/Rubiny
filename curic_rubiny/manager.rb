@@ -198,7 +198,7 @@ module CURIC::Rubiny
       encoded_title = URI.encode_www_form_component(title)
       encoded_body = URI.encode_www_form_component(body)
 
-      url = "https://github.com/voqhai/Rubiny/issues/new?title=#{encoded_title}&body=#{encoded_body}"
+      url = "#{GIT_REPO}/issues/new?title=#{encoded_title}&body=#{encoded_body}"
       UI.openURL(url)
     end
 
@@ -208,6 +208,10 @@ module CURIC::Rubiny
 
     def get_snippet(snippet_data)
       CURIC::Rubiny.snippets[snippet_data['id']] || CURIC::Rubiny.snippets.create(snippet_data)
+    end
+
+    def show_help
+      UI.openURL(GIT_REPO)
     end
   end
 end

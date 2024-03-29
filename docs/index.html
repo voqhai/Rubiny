@@ -34,62 +34,99 @@
           </el-select>
         </div>
         <el-divider></el-divider>
-        <div class="snippets" :style="layoutSnippets">
-          <template v-for="snippet in filteredSnippets">
-            <div class="snippet-wrap" :key="snippet.id" @mouseenter="hoverStart(snippet)" @mouseleave="hoverEnd"
-            >
-              <el-card :body-style="{padding: '10px'}">
-                <div slot="header" class="clearfix">
-                  <div class="bar" >
-                    <div>
-                      <h4 class="snippet-name">{{ snippet.name }}</h4>
-                      <div>
-                        <span class="snippet-author">@{{snippet.author}}</span>
-                        <span class="snippet-version">({{snippet.version}})</span>
-                      </div>
-                      <div v-if="snippet.suggested_by">
-                        <span class="snippet-suggested-by">Suggested by {{snippet.suggested_by}}</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="bar button-icon-group gap2">
-                        <span class="icon-button" @click="play(snippet)" title="Play snippet">  <i class="play bx bx-play-circle bx-border bx-sm"></i> </span>
-                        <template v-if="snippet.installed">
-                          <span class="icon-button" @click="uninstall(snippet)" title="Uninstall">  <i class="uninstall bx bxs-trash bx-border bx-sm"></i> </span>
-                        </template>
-                        <template v-else>
-                          <span class="icon-button" @click="install(snippet)" title="Install">  <i class="install bx bx-down-arrow-circle bx-border bx-sm"></i> </span>
-                        </template>
-                        <template v-if="hasNewVersion(snippet)">
-                          <span class="icon-button" @click="update(snippet)" title="Update">  <i class="update bx bx-up-arrow-circle bx-border bx-sm"></i> </span>
-                        </template>
-                        <template v-if="snippet.use_settings">
-                          <span class="icon-button" @click="showSettings(snippet)" title="Settings">  <i class="settings bx bx-cog bx-border bx-sm"></i> </span>
-                        </template>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="snippet-content">
-                  <div class="bar left">
-                    <div class="snippet-thumbnail">
-                      <img :src="'snippets/' + snippet.id + '/asset/thumbnail.png'" alt="Snippet Thumbnail">
-                    </div>
-                    <div>
-                      <div><span class="snippet-description">{{ snippet.description }}</span></div>
-                      <div>
-                        <template v-if="snippet.component">
-                          <component v-model="snippet.value" @change="playValue(snippet)" :is="snippet.component" v-bind="snippet.props"></component>
-                        </template>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </el-card>
-            </div>
-          </template>
-        </div>
 
+        <div class="bar main-layout" :style="{height: this.windowHeight - 170 + 'px'}">
+          <div class="side-bar">
+            <el-card class="side-bar-wrap" :body-style="{height: 'calc(100% - 20px)', padding: '10px'}">
+              <div class="side-bar-content">
+                <div class="bar views gap5 ">
+                  <!-- Online -->
+                  <span class="icon-button view-button" :class="activeTab == 'online' ? 'active' : ''" @click="activeTab='online'">
+                    <i class="bx bx-cloud bx-border bx-sm"></i>
+                  </span>
+
+                  <!-- Local -->
+                  <span class="icon-button view-button" :class="activeTab == 'local' ? 'active' : ''" @click="activeTab='local'">
+                    <i class="bx bx-folder-open bx-border bx-sm"></i>
+                  </span>
+                </div>
+                
+                <div class="bar">
+                  <span class="icon-button view-button" @click="sketchup.call('show_help')">
+                    <i class="bx bx-help-circle bx-border bx-sm"></i>
+                  </span>
+                </div>
+              </div>
+            </el-card>
+          </div>
+          <div class="main-container ">
+            <h3 class="view-title">{{activeTab}}</h3>
+            <div class="snippets-wrap">
+              <div class="snippets" :style="layoutSnippets">
+                <template v-for="snippet in filteredSnippets">
+                  <div class="snippet-wrap" :key="snippet.id" @mouseenter="hoverStart(snippet)" @mouseleave="hoverEnd"
+                  >
+                    <el-card class="snippet" :body-style="{padding: '10px'}">
+                      <div slot="header" class="clearfix">
+                        <div class="bar" >
+                          <div>
+                            <div class="bar gap5">
+                              <h4 class="snippet-name">{{ snippet.name }}</h4>
+                              <span class="snippet-shortcut" v-if="snippet.shortcut">({{snippet.shortcut}})</span>
+                            </div>
+                            <div>
+                              <span class="snippet-author">@{{snippet.author}}</span>
+                              <span class="snippet-version">({{snippet.version}})</span>
+                            </div>
+                            <div v-if="snippet.suggested_by">
+                              <span class="snippet-suggested-by">Suggested by {{snippet.suggested_by}}</span>
+                            </div>
+                          </div>
+                          <div>
+                            <div class="bar button-icon-group gap2">
+                              <span class="icon-button" @click="play(snippet)" title="Play snippet">  <i class="play bx bx-play-circle bx-border bx-sm"></i> </span>
+                              <template v-if="snippet.installed">
+                                <span class="icon-button" @click="uninstall(snippet)" title="Uninstall">  <i class="uninstall bx bxs-trash bx-border bx-sm"></i> </span>
+                              </template>
+                              <template v-else>
+                                <span class="icon-button" @click="install(snippet)" title="Install">  <i class="install bx bx-down-arrow-circle bx-border bx-sm"></i> </span>
+                              </template>
+                              <template v-if="hasNewVersion(snippet)">
+                                <span class="icon-button" @click="update(snippet)" title="Update">  <i class="update bx bx-up-arrow-circle bx-border bx-sm"></i> </span>
+                              </template>
+                              <template v-if="snippet.use_settings">
+                                <span class="icon-button" @click="showSettings(snippet)" title="Settings">  <i class="settings bx bx-cog bx-border bx-sm"></i> </span>
+                              </template>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="snippet-content">
+                        <div class="bar left">
+                          <div class="snippet-thumbnail">
+                            <img :src="'snippets/' + snippet.id + '/asset/thumbnail.png'" alt="Snippet Thumbnail"
+                              onerror="this.src='images/snippet_default_thumbanil.svg'"
+                            >
+
+                          </div>
+                          <div>
+                            <div><span class="snippet-description">{{ snippet.description }}</span></div>
+                            <div>
+                              <template v-if="snippet.component">
+                                <component v-model="snippet.value" @change="playValue(snippet)" :is="snippet.component" v-bind="snippet.props"></component>
+                              </template>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </el-card>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+        </div>
+   
         <!-- Error -->
         <el-dialog
           title="Oops! An error occurred..."

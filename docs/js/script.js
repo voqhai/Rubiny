@@ -3,6 +3,7 @@ function createVueApp() {
   app = new Vue({
     el: '#app',
     data: {
+      sketchup: sketchup,
       search: '',
       snippets: [],
       installed: [],
@@ -13,6 +14,11 @@ function createVueApp() {
         { label: 'Created', value: 'created_at' },
         { label: 'Updated', value: 'updated_at' },
       ],
+      tabs: [
+        { label: 'Local', value: 'local' },
+        { label: 'Online', value: 'online' },
+      ],
+      activeTab: 'online',
       currentHover: null,
       error: {
         message: '',
@@ -29,9 +35,12 @@ function createVueApp() {
     watch: {
       installed: function (newVal, oldVal) {
         this.snippets.forEach(snippet => {
-          i = newVal.findIndex(i => i.id === snippet.id);
-          if (i >= 0) {
+          local_snippet = newVal.find(s => s.id === snippet.id)
+
+          // Map local info to snippet
+          if (local_snippet) {
             snippet.installed = true;
+            snippet.shortcut = local_snippet.shortcut;
           } else {
             snippet.installed = false;
           }
@@ -211,10 +220,20 @@ function createVueApp() {
       createIssue() {
         sketchup.call('create_issue', this.error);
       },
+      // showHelp() {
+      //   sketchup.call('show_help');
+      // }
     },
     computed: {
       filteredSnippets() {
-        sorted = this.sortSnippets(this.snippets, this.sort);
+        var currentList;
+        if (this.activeTab === 'local') {
+          currentList = this.installed;
+        } else {
+          currentList = this.snippets;
+        }
+
+        sorted = this.sortSnippets(currentList, this.sort);
         return sorted.filter(snippet => {
           const search = this.search.toLowerCase();
           return snippet.name.toLowerCase().includes(search) || snippet.description.toLowerCase().includes(search);
@@ -230,7 +249,7 @@ function createVueApp() {
         } else {
           return {
             display: 'block',
-            height: this.windowHeight - 170 + 'px'
+            height: this.windowHeight - 200 + 'px'
           };
         }
       }

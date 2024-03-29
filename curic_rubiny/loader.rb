@@ -14,6 +14,7 @@ module CURIC
     ICON = File.join(PATH_R, "icon.png")
 
     HOST = 'https://voqhai.github.io/Rubiny/'
+    GIT_REPO = 'https://github.com/voqhai/Rubiny'
 
     require 'uri'
     require 'json'
@@ -103,7 +104,12 @@ module CURIC
 
       json_file = File.join(dir, "#{snippet.id}.json")
       data = info.dup
+
+      data.delete('installed')
+      data.delete('evaluated')
+      data.delete('loaded')
       data.delete('ruby_content')
+
       save_to_temp(json_file, JSON.pretty_generate(data))
     end
 
@@ -126,8 +132,9 @@ module CURIC
         info = JSON.parse(File.read(json_file))
         default_info = {
           'id' => id,
-          'name' => "Name for #{id}",
-          'description' => "Description for #{id}"
+          'name' => id,
+          'description' => "Description for #{id}",
+          'installed' => true
         }
 
         info = default_info.merge(info)
@@ -143,6 +150,7 @@ module CURIC
         next unless const
 
         snippet = const.new(info)
+        snippet.installed = true
 
         register_snippet(snippet)
       end

@@ -51,6 +51,18 @@ module CURIC::Rubiny
       @installed
     end
 
+    def info
+      i = @info.dup
+      i['installed'] = installed?
+      i['loaded'] = @loaded
+      i['evaluated'] = @evaluated
+
+      @shortcut ||= get_shortcut
+      i['shortcut'] = @shortcut
+
+      i
+    end
+
     def check_installed
       ruby_file = @info['ruby_file']
       return false unless ruby_file
@@ -90,6 +102,15 @@ module CURIC::Rubiny
 
     def hover_changed(value)
       nil
+    end
+
+    def get_shortcut
+      cmd = "Rubiny/Snippets/#{@name}"
+      shortcut_info = Sketchup.get_shortcuts.find { |s| s.include?(cmd) }
+      return unless shortcut_info
+
+      # Split at "\t" and get the key at the first index
+      shortcut_info.split("\t")[0]
     end
   end
 end
