@@ -202,9 +202,16 @@ i.uninstall {
 }
 .snippet-shortcut {
   font-size: 12px;
+  font-weight: 500;
   color: #5a5a5a;
+  height: 16px;
+  line-height: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px 4px;
+  background-color: #f5f5f5;
+  text-align: center;
 }
-
 
 .snippet-description {
   font-size: 14px;
