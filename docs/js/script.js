@@ -3,7 +3,6 @@ function createVueApp() {
   app = new Vue({
     el: '#app',
     data: {
-      sketchup: sketchup,
       search: '',
       snippets: [],
       installed: [],
@@ -220,9 +219,9 @@ function createVueApp() {
       createIssue() {
         sketchup.call('create_issue', this.error);
       },
-      // showHelp() {
-      //   sketchup.call('show_help');
-      // }
+      showHelp() {
+        sketchup.call('show_help');
+      }
     },
     computed: {
       filteredSnippets() {
